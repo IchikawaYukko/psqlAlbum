@@ -52,14 +52,13 @@ HEREDOC;
   public function toHTMLlarge() {
     global $psqlAlbum;
 
-    $style = $this->orientationToCSS($this->orientation);
     $date = DBConn::date_toJapanese($this->date);
-    $dir = $psqlAlbum['PhotoDir'];
+    $dir = $psqlAlbum['VideoDir'];
   
     return 
 <<<HEREDOC
 <DIV>
-  <IMG style="$style" src="$dir$this->filename" alt="$this->title">
+  <VIDEO src="$this->filename" alt="$this->title">
   <DIV>$this->title</DIV>
   <DIV>$this->description</DIV>
   <DIV>$date</DIV>
