@@ -1,10 +1,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd">
 <?php
+  //This page shows detail of the objects(Photos, Videos, Sounds).
+
   require_once('settings.php');
   require_once(dirname(__FILE__).'/pphoto.php');
   require_once(dirname(__FILE__).'/pvideo.php');
 
-  $obj;
+  $obj;	//Object which show in this page.
   $db = new DBconn($db_param);
 
   function init() {
