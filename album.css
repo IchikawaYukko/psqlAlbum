@@ -1,0 +1,36 @@
+@charset "UTF-8";
+.container {width: 100%;margin: 0 auto;}
+H1 {font-size: 22pt; font-weight: normal; font-family: "メイリオ";}
+BODY { background-image: url(/images/bgimage.gif); }
+#canvas {width: 90%; position: relative; left: 5%;} //gpx Map
+.title {height: 90px;}
+.description {height: 250px;}
+.first {margin-left: 0;clear: left;}
+
+.grid250 {
+        float: left;
+        display: inline;
+        margin-left: 0px;
+        margin: 0px;
+        border: groove 2px aqua;
+        width: 245px;
+}
+.grid250 A,.grid250 .thumbs {
+	width: 95%;
+	position: relative;
+	left: 1%;
+}
+//.gird250 A { height: 220px; }
+.grid250 DIV {overflow: auto;}
+.playbutton { position: relative; width: 50%; height: auto; left: 22%; bottom: 150; }
+
+/* clearfix */
+.clearfix:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+}
+
