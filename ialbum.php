@@ -15,8 +15,8 @@
 	$db->conn();
 	$album = new Album($_GET['id']);
 	//$album = new Album(2);
-	$photo = Photo::getPhotosInDateRange($album->getDatebegin(), $album->getDateend());
-	$video = Video::getVideosInDateRange($album->getDatebegin(), $album->getDateend());
+	$photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+	$video = Video::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
 	$gpx = GPX::getGPXsInDateRange($album->getDatebegin(), $album->getDateend());
   }
 

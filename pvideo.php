@@ -67,7 +67,7 @@ HEREDOC;
 HEREDOC;
   }
 
-  static function getVideosInDateRange($datebegin, $dateend) {
+  public static function getObjectsInDateRange($datebegin, $dateend) {
     global $db,$db_param;
     
     $db->query("SELECT video.id AS id,filename,datetaken,video.title AS title,video.description AS description,length,path_photo FROM album,video WHERE datetaken <= date_end AND datetaken >= date_begin AND datetaken BETWEEN $1 AND $2 ORDER BY video.id;", array($datebegin, $dateend));
@@ -76,6 +76,20 @@ HEREDOC;
       $videos[] = new Video($result);
     }
     
+    return $videos;
+  }
+
+  public static function getObjectsBySearchQuery($query) {
+    global $db;
+
+    // $db->query("SELECT photo_view.id AS id,filename,datetaken,photo_view.title AS title,photo_view.description AS description,orientation,path_photo FROM album,photo_view WHERE (photo_view.title LIKE $1 OR photo_view.description LIKE $1) ORDER BY photo_view.id;", array("%$query%"));
+    $db->query("SELECT * FROM video WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", array("%$query%"));
+//SELECT * FROM photo_view WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", array("%$query%"));
+     while($db->hasMoreRows()) {
+      $result = $db->nextRow();
+      $videos[] = new Video($result);
+    }
+
     return $videos;
   }
 

@@ -68,7 +68,7 @@ HEREDOC;
 HEREDOC;
   }
 
-  static function getPhotosInDateRange($datebegin, $dateend) {
+  public static function getObjectsInDateRange($datebegin, $dateend) {
     global $db;
     
     $db->query("SELECT id,filename,datetaken,title,description,orientation,path_photo FROM photo_view WHERE datetaken BETWEEN $1 AND $2 ORDER BY id;", array($datebegin, $dateend));
@@ -80,7 +80,7 @@ HEREDOC;
     return $photos;  
   }
 
-  static function getPhotosBySearchQuery($query) {
+  public static function getObjectsBySearchQuery($query) {
     global $db;
 
     // $db->query("SELECT photo_view.id AS id,filename,datetaken,photo_view.title AS title,photo_view.description AS description,orientation,path_photo FROM album,photo_view WHERE (photo_view.title LIKE $1 OR photo_view.description LIKE $1) ORDER BY photo_view.id;", array("%$query%"));

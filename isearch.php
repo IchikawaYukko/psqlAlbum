@@ -14,8 +14,8 @@
 
 	$db->conn();
 	$query_string = htmlspecialchars($_GET['query'], ENT_QUOTES|'ENT_HTML401');
-	$photo = Photo::getPhotosBySearchQuery($query_string);
-	//$video = Video::getVideosInDateRange($album->getDatebegin(), $album->getDateend());
+	$photo = Photo::getObjectsBySearchQuery($query_string);
+	$video = Video::getObjectsBySearchQuery($query_string);
   }
 
   function title() {
@@ -70,9 +70,9 @@
 foreach($photo as $data) {
 	print $data->toHTMLthumbnail();
 }
-//foreach($video as $data) {
-//	print $data->toHTMLthumbnail();
-//}?>
+foreach($video as $data) {
+	print $data->toHTMLthumbnail();
+}?>
 		</DIV>
 		<HR>
 		<A href="index.php">戻る</A>
