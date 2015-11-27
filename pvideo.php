@@ -67,7 +67,7 @@ HEREDOC;
   }
 
   public static function getObjectsInDateRange($datebegin, $dateend) {
-    global $db,$db_param;
+    global $db;
     
     $db->query("SELECT video.id AS id,filename,datetaken,video.title AS title,video.description AS description,length,path_photo FROM album,video WHERE datetaken <= date_end AND datetaken >= date_begin AND datetaken BETWEEN $1 AND $2 ORDER BY video.id;", array($datebegin, $dateend));
     while($db->hasMoreRows()) {

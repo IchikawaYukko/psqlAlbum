@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd">
 <?php
   //This page shows detail of the objects(Photos, Videos, Sounds).
+  //オブジェクト(写真、ビデオ、音声)の詳細を表示するページ
 
   require_once('settings.php');
   require_once(dirname(__FILE__).'/pphoto.php');
@@ -32,13 +33,7 @@
 ?>
 <HTML LANG="<?php print $psqlAlbum['SiteLang']; ?>">
   <HEAD>
-    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
-    <meta http-equiv="Content-Language" content="<?php print $psqlAlbum['SiteLang']; ?>">
-    <!-- < *｀∀´> このページのソースをご覧になるとはあなたも物好きですねぇ -->
-    <!-- HTML生ソースの世界へようこそ -->
-    <META http-equiv="Content-Style-Type" content="text/css">
-    <META name="robots" content="index,follow">
-    <META name="GENERATOR" content="pSQLAlbum 1.0 by IchikawaYukko">
+    <?php require_once(dirname(__FILE__).'/metatags.php'); //共通の<meta>をファイルからインポート ?>
     <!-- Facebook OGP -->
     <meta property="og:title" content="<?php print $obj->getTitle(); ?>" />
     <meta property="og:type" content="article" />
