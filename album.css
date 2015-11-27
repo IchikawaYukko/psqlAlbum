@@ -3,7 +3,7 @@
 H1 {font-size: 22pt; font-weight: normal; font-family: "メイリオ";}
 BODY { background-image: url(/images/bgimage.gif); }
 #canvas {width: 90%; position: relative; left: 5%;} //gpx Map
-.title {height: 90px;}
+.title { height: 90px; }
 .description {height: 250px;}
 .first {margin-left: 0;clear: left;}
 
