@@ -3,9 +3,11 @@
   $psqlAlbum['Description'] = "東南アジア旅行2012 写真アルバム";
   $psqlAlbum['AlbumAuthor'] = "市川ゆり子";
   $psqlAlbum['AuthorTwitterAccount'] = "@IchikawaYukko";
-  $psqlAlbum['SiteLang']= "ja";   //<HTML lang="xx">
+  $psqlAlbum['SiteLang']    = "ja";   //<HTML lang="xx"> サイトの言語コード(ISO639)
+  $psqlAlbum['SiteLangFull']= "ja_JP";//サイトの言語コード(国名コード付き)
   //URLs
-  $psqlAlbum['DomainName']  = "http://ichikawayukko.mydns.jp/";
+  $psqlAlbum['Domain']      = "ichikawayukko.mydns.jp";
+  $psqlAlbum['DomainName']  = "http://" . $psqlAlbum['Domain'] . "/";
   $psqlAlbum['AlbumRoot']   = $psqlAlbum['DomainName']."SoutheastAsia2012/";
   //Paths
   $psqlAlbum['DocumentRoot']= "/mnt/data";

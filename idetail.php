@@ -6,12 +6,14 @@
   require_once('settings.php');
   require_once(dirname(__FILE__).'/pphoto.php');
   require_once(dirname(__FILE__).'/pvideo.php');
+  require_once(dirname(__FILE__).'/psns.php');
 
   $obj;	//Object which show in this page.
+  $sns;	//FacebookOGP/Twitter Cards
   $db = new DBconn($db_param);
 
   function init() {
-    global $obj, $db;
+    global $obj, $db, $sns;
 
     $db->conn();
     if(isset($_GET['pid'])) {
@@ -21,6 +23,8 @@
       //video
       $obj = new Video($_GET['vid']);
     }
+
+    $sns = new SNS($obj->getTitle(), $obj->getDescription(), $obj->getFileURL());
   }
 
   function title() {
@@ -33,21 +37,12 @@
 ?>
 <HTML LANG="<?php print $psqlAlbum['SiteLang']; ?>">
   <HEAD>
-    <?php require_once(dirname(__FILE__).'/metatags.php'); //共通の<meta>をファイルからインポート ?>
-    <!-- Facebook OGP -->
-    <meta property="og:title" content="<?php print $obj->getTitle(); ?>" />
-    <meta property="og:type" content="article" />
-    <meta property="og:description" content="<?php print $obj->getDescription(); ?>" />
-    <meta property="og:url" content="<?php print $psqlAlbum['AlbumRoot']."index.php?pid=".$_GET['pid']; ?>" />
-    <meta property="og:image" content="<?php print $psqlAlbum['AlbumRoot'].$obj->getFilename(); ?>" />
-    <meta property="og:site_name" content="<?php print $psqlAlbum['AlbumName']; ?>" />
-    <meta property="og:locale" content="ja_JP" />
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="photo" />
-    <meta name="twitter:site" content="<?php print $psqlAlbum['AuthorTwitterAccount']; ?>" />
-    <meta name="twitter:title" content="<?php print($obj->getTitle()); ?>" />
-    <meta name="twitter:image" content="<?php print $psqlAlbum['AlbumRoot'].$obj->getFilename(); ?>" />
-    <meta name="twitter:url" content="<?php print($psqlAlbum['AlbumRoot']."index.php?pid=".$_GET['pid']); ?>" />
+<?php
+require_once(dirname(__FILE__).'/metatags.php'); //共通の<meta>をファイルからインポート
+
+print $sns->toFacebookOGP('article');
+print $sns->toTwitterCards('photo');
+?>
     <LINK href="<?php print $psqlAlbum['AlbumLibDir']; ?>album.css" rel="stylesheet" type="text/css"></link>
     <TITLE><?php print(title()); ?></TITLE>
     <STYLE type="text/css">

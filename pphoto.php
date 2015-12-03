@@ -124,5 +124,10 @@ HEREDOC;
   public function getFilename() {
     return $this->filename;
   }
+  public function getFileURL() {
+    global $psqlAlbum;
+
+    return $psqlAlbum['AlbumRoot'] . $psqlAlbum['PhotoDir'] . $this->filename;
+  }
 }
 ?>
