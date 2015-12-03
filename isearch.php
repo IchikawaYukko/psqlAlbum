@@ -5,17 +5,21 @@
   require_once(dirname(__FILE__).'/pphoto.php');
   require_once(dirname(__FILE__).'/pvideo.php');
   require_once(dirname(__FILE__).'/pgpx.php');
+  require_once(dirname(__FILE__).'/psns.php');
 
-  $photo; $video; $query_string;
+  $photo; $video; $query_string; $sns;
   $db = new DBconn($db_param);
 
   function init() {
-    global $photo, $video, $db, $query_string;
+    global $photo, $video, $db, $query_string, $sns;
+    global $psqlAlbum;
 
 	$db->conn();
 	$query_string = htmlspecialchars($_GET['query'], ENT_QUOTES|'ENT_HTML401');
 	$photo = Photo::getObjectsBySearchQuery($query_string);
 	$video = Video::getObjectsBySearchQuery($query_string);
+
+	$sns = new SNS(title(), $psqlAlbum['Description'], $photo[0]->getFileURL()); 
   }
 
   function title() {
@@ -28,21 +32,12 @@
 ?>
 <HTML LANG="<?php print $psqlAlbum['SiteLang']; ?>">
 	<HEAD>
-		<?php require_once(dirname(__FILE__).'/metatags.php'); //共通の<meta>をファイルからインポート ?>
-		<!-- facebook ogp -->
-			<meta property="og:title" content="<?php print $psqlAlbum['AlbumName']; ?>">
-			<meta property="og:type" content="article">
-			<meta property="og:description" content="<?php print $psqlAlbum['Description']; ?>">
-			<meta property="og:url" content="<?php print $psqlAlbum['AlbumRoot']; ?>">
-			<meta property="og:image" content="http://ichikawayukko.mydns.jp/Nanjing/thumbs/20120508/SAM_1816.JPG">
-			<meta property="og:site_name" content="<?php print $psqlAlbum['AlbumName']; ?>">
-			<meta property="og:email" content="">
-		<!-- Twitter Card -->
-			<meta name="twitter:card" content="photo" />
-			<meta name="twitter:site" content="@IchikawaYukko" />
-			<meta name="twitter:title" content="<?php //print($album->getTitle()); ?>" />
-			<meta name="twitter:image" content="<?php print $psqlAlbum['AlbumRoot']; ?>" />
-			<meta name="twitter:url" content="<?php //print $psqlAlbum['AlbumRoot'].'index.php?aid='.$_GET['id']; ?>" />
+<?php
+require_once(dirname(__FILE__).'/metatags.php'); //共通の<meta>をファイルからインポート
+
+print $sns->toFacebookOGP('article');
+print $sns->toTwitterCards('photo');
+?>
 		<LINK rel="stylesheet" type="text/css" href="<?php print $psqlAlbum['AlbumLibDir']; ?>album.css">
 		<link rel="canonical" href="<?php print $psqlAlbum['DomainName'] . $_SERVER['REQUEST_URI']; ?>">
 		<TITLE><?php print title(); ?></TITLE>
