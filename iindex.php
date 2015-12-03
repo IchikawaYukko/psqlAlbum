@@ -1,43 +1,31 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd">
 <?php
 require_once('settings.php');
 require_once(dirname(__FILE__).'/palbum.php');
+require_once(dirname(__FILE__).'/psns.php');
 
 $album;
+$sns; //FacebookOGP/Twitter Cards
 $db = new DBconn($db_param);
 $db->conn();
 
 function init() {
-	global $album;
+	global $psqlAlbum, $album, $sns;
 
 	$album = Album::getAllAlbum();
+	$sns = new SNS($psqlAlbum['AlbumName'], $psqlAlbum['Description'], $psqlAlbum['Image0']);
 }
 
 init();
 ?>
 <HTML LANG="<?php print $psqlAlbum['SiteLang']; ?>">
 	<HEAD>
-		<?php require_once(dirname(__FILE__).'/metatags.php'); //共通の<meta>をファイルからインポート ?>
-		<!-- facebook ogp -->
-			<meta property="og:title" content="<?php print $psqlAlbum['AlbumName']; ?>">
-			<meta property="og:type" content="website">
-			<meta property="og:description" content="<?php print $psqlAlbum['Description']; ?>">
-			<meta property="og:url" content="http://ichikawayukko.mydns.jp/Nanjing/">
-			<meta property="og:image" content="http://ichikawayukko.mydns.jp/Nanjing/thumbs/20120508/SAM_1816.JPG">
-			<meta property="og:site_name" content="<?php print $psqlAlbum['AlbumName']; ?>">
-			<meta property="og:email" content="">
-		<!-- Twitter card -->
-			<meta name="twitter:card" content="gallery">
-			<meta name="twitter:site" content="@IchikawaYukko">
-			<meta name="twitter:creator" content="@IchikawaYukko">
-			<meta name="twitter:domain" content="ichikawayukko.mydns.jp">
-			<meta name="twitter:title" content="<?php print $psqlAlbum['AlbumName']; ?>">
-			<meta name="twitter:description" content="<?php print $psqlAlbum['Description']; ?>">
-			<meta name="twitter:url" content="http://ichikawayukko.mydns.jp/Nanjing/">
-			<META name="twitter:image0" content="http://ichikawayukko.mydns.jp/Nanjing/thumbs/20120510-0511/SAM_1964.JPG">
-			<META name="twitter:image1" content="http://ichikawayukko.mydns.jp/Nanjing/thumbs/20120509/SAM_1848.JPG">
-			<META name="twitter:image2" content="http://ichikawayukko.mydns.jp/Nanjing/thumbs/20120509/SAM_1913.JPG">
-			<META name="twitter:image3" content="http://ichikawayukko.mydns.jp/Nanjing/thumbs/20120508/SAM_1816.JPG">
+<?php
+require_once(dirname(__FILE__).'/metatags.php'); //共通の<meta>をファイルからインポート
+
+print $sns->toFacebookOGP('website');
+print $sns->toTwitterCards('gallery', $psqlAlbum['Image0'], $psqlAlbum['Image1'], $psqlAlbum['Image2'], $psqlAlbum['Image3']);
+?>
 		<TITLE><?php print $psqlAlbum['AlbumName']; ?></TITLE>
 		<LINK rel="stylesheet" type="text/css" href="<?php print $psqlAlbum['AlbumLibDir']; ?>album.css">
 		<link rel="canonical" href="<?php print $psqlAlbum['AlbumRoot']; ?>">

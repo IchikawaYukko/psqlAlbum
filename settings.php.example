@@ -9,6 +9,11 @@
   $psqlAlbum['Domain']      = "ichikawayukko.mydns.jp";
   $psqlAlbum['DomainName']  = "http://" . $psqlAlbum['Domain'] . "/";
   $psqlAlbum['AlbumRoot']   = $psqlAlbum['DomainName']."SoutheastAsia2012/";
+  //Image URLs　サイトの代表画像
+  $psqlAlbum['Image0']      = "http://";
+  $psqlAlbum['Image1']      = "http://";
+  $psqlAlbum['Image2']      = "http://";
+  $psqlAlbum['Image3']      = "http://";
   //Paths
   $psqlAlbum['DocumentRoot']= "/mnt/data";
   //Relative Paths (from AlbumRoot)
