@@ -51,7 +51,7 @@ print $sns->toTwitterCards('photo');
 
 		写真をクリックすると大きいサイズの写真が表示されます。</P>
 		<HR>
-		<DIV class="container clearfix">
+		<DIV class="container">
 <?php
 foreach($photo as $data) {
 	print $data->toHTMLthumbnail();
@@ -60,7 +60,7 @@ foreach($video as $data) {
 	print $data->toHTMLthumbnail();
 }?>
 		</DIV>
-		<HR>
+		<HR class="bottomHR">
 		<A href="index.php">戻る</A>
 	</BODY>
 </HTML>

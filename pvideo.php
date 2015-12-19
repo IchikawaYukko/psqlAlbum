@@ -47,7 +47,7 @@ class Video extends AlbumObject {
   
     return 
 <<<HEREDOC
-<DIV class="grid250">
+<DIV class="album_object">
   <A href="index.php?vid=$this->db_id"><IMG class="thumbs" style="$style" src="$dir$thumbnail_filename" alt="$this->title"><IMG class="playbutton"  src="$playbutton_url" alt="Play Button"></A>
   <DIV class="title">$this->title</DIV>
   <DIV class="description">$this->description</DIV>

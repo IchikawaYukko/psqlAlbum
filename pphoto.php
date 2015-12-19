@@ -39,11 +39,18 @@ class Photo extends AlbumObject {
     $style = $this->orientationToCSS($this->orientation);
     $date = DBConn::date_toJapanese($this->date);
     $dir = $psqlAlbum['ThumbnailDir'];
-  
+
+    
+    if(!is_null($style)) {
+      $class = " image_rotated";	
+    } else {
+      $class = "";
+    }
+    
     return 
 <<<HEREDOC
-<DIV class="grid250">
-  <A href="index.php?pid=$this->db_id"><IMG class="thumbs" style="$style" src="$dir$this->filename" alt="$this->title"></A>
+<DIV class="album_object">
+  <A href="index.php?pid=$this->db_id"><IMG class="thumbs$class" style="$style" src="$dir$this->filename" alt="$this->title"></A>
   <DIV class="title">$this->title</DIV>
   <DIV class="description">$this->description</DIV>
 </DIV>
