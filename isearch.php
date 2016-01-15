@@ -60,7 +60,7 @@ foreach($video as $data) {
 	print $data->toHTMLthumbnail();
 }?>
 		</DIV>
-		<HR class="bottomHR">
+		<HR>
 		<A href="index.php">戻る</A>
 	</BODY>
 </HTML>

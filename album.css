@@ -29,3 +29,24 @@ BODY { background-image: url(/images/bgimage.gif); }
 	bottom: 150;
 }
 
+/* オブジェクトの詳細ページ(iedtail.php) */
+HTML.detailpage, BODY.detailpage {
+	height: 100%;
+	overflow: hidden;
+}
+.object_large {
+	height: 100%;
+	width: auto;
+	position: absolute;
+}
+.title_large {
+	position: absolute;
+	bottom: 10px;
+	text-shadow: 
+		-1px -1px white,
+		1px -1px white,
+		-1px 1px white,
+		1px 1px white;	
+}
+.description_detail {
+}

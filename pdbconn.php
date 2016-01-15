@@ -1,4 +1,9 @@
 <?php
+/*********************************************
+The MIT License (MIT)
+
+Copyright (c) 2015 市川ゆり子/IchikawaYuriko
+*********************************************/
 class DBConn {
   private $link, $host, $dbname, $user, $pass;
   private $rowcount = 0;

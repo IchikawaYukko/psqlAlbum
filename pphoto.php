@@ -67,10 +67,10 @@ HEREDOC;
     return 
 <<<HEREDOC
 <DIV>
-  <IMG style="$style" src="$dir$this->filename" alt="$this->title">
-  <DIV>$this->title</DIV>
-  <DIV>$this->description</DIV>
-  <DIV>$date</DIV>
+  <A href="$dir$this->filename"><IMG class="object_large" style="$style" src="$dir$this->filename" alt="$this->title"></A>
+  <DIV class="title_large">$this->title</DIV>
+  <DIV class="description_large">$this->description</DIV>
+  <DIV class="date_large">$date</DIV>
 </DIV>
 HEREDOC;
   }

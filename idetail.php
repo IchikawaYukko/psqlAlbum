@@ -35,7 +35,7 @@
 
   init();
 ?>
-<HTML LANG="<?php print $psqlAlbum['SiteLang']; ?>">
+<HTML class="detailpage" LANG="<?php print $psqlAlbum['SiteLang']; ?>">
   <HEAD>
 <?php
 require_once(dirname(__FILE__).'/metatags.php'); //共通の<meta>をファイルからインポート
@@ -51,7 +51,7 @@ print $sns->toTwitterCards('photo');
     -->
     </STYLE>
   </HEAD>
-  <BODY>
+  <BODY class="detailpage">
 <?php
   print $obj->toHTMLlarge();
 ?>
