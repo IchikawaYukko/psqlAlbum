@@ -28,6 +28,9 @@ BODY { background-image: url(/images/bgimage.gif); }
 	left: 22%;
 	bottom: 150;
 }
+.thumbs {
+	width: 95%;
+}
 
 /* オブジェクトの詳細ページ(iedtail.php) */
 HTML.detailpage, BODY.detailpage {
