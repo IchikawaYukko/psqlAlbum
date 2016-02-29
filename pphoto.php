@@ -90,10 +90,13 @@ HEREDOC;
   public static function getObjectsBySearchQuery($query) {
     global $db;
 
-    // $db->query("SELECT photo_view.id AS id,filename,datetaken,photo_view.title AS title,photo_view.description AS description,orientation,path_photo FROM album,photo_view WHERE (photo_view.title LIKE $1 OR photo_view.description LIKE $1) ORDER BY photo_view.id;", array("%$query%"));
-    $db->query("SELECT * FROM photo_view WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", array("%$query%"));
-//SELECT * FROM photo_view WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", array("%$query%"));
-     while($db->hasMoreRows()) {
+    if($query == "") {
+      $db->query("SELECT * FROM photo_view ORDER BY id;", array());
+    } else {
+      $db->query("SELECT * FROM photo_view WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", array("%$query%"));
+    }
+
+    while($db->hasMoreRows()) {
       $result = $db->nextRow();
       $photos[] = new Photo($result);
     }
