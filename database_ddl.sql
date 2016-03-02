@@ -26,9 +26,9 @@ CREATE TABLE album (
     title text,
     description text,
     path_photo character varying(64) NOT NULL,
-    CONSTRAINT nanjing_check CHECK ((date_end >= date_begin)),
-    CONSTRAINT nanjing_date_begin_check CHECK ((date_begin < ('now'::text)::date)),
-    CONSTRAINT nanjing_date_end_check CHECK ((date_end < ('now'::text)::date))
+    CONSTRAINT album_check CHECK ((date_end >= date_begin)),
+    CONSTRAINT album_date_begin_check CHECK ((date_begin < ('now'::text)::date)),
+    CONSTRAINT album_date_end_check CHECK ((date_end < ('now'::text)::date))
 );
 
 
@@ -63,7 +63,7 @@ CREATE TABLE gpx (
     id integer NOT NULL,
     date date NOT NULL,
     filename character varying(64) NOT NULL,
-    CONSTRAINT nanjing_gpx_date_check CHECK ((date < ('now'::text)::date))
+    CONSTRAINT gpx_date_check CHECK ((date < ('now'::text)::date))
 );
 
 
@@ -114,9 +114,8 @@ CREATE TABLE photo (
     title text,
     description text,
     flag character(3),
-    orientation smallint DEFAULT 1 NOT NULL,
-    CONSTRAINT nanjing_photo_datetaken_check CHECK ((datetaken < ('now'::text)::date)),
-    CONSTRAINT nanjing_photo_orientation_check CHECK (((orientation > 0) AND (orientation <= 8)))
+    orientation smallint DEFAULT 1,
+    CONSTRAINT photo_datetaken_check CHECK ((datetaken < ('now'::text)::date))
 );
 
 
@@ -154,6 +153,46 @@ CREATE VIEW photo_view AS
 ALTER TABLE public.photo_view OWNER TO yuriko;
 
 --
+-- Name: sound; Type: TABLE; Schema: public; Owner: yuriko; Tablespace: 
+--
+
+CREATE TABLE sound (
+    id integer NOT NULL,
+    filename character varying(64) NOT NULL,
+    datetaken date NOT NULL,
+    title text,
+    description text,
+    length integer NOT NULL,
+    flag character(3),
+    CONSTRAINT sound_datetaken_check CHECK ((datetaken > ('now'::text)::date)),
+    CONSTRAINT sound_length_check CHECK ((length > 0))
+);
+
+
+ALTER TABLE public.sound OWNER TO yuriko;
+
+--
+-- Name: sound_id_seq; Type: SEQUENCE; Schema: public; Owner: yuriko
+--
+
+CREATE SEQUENCE sound_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sound_id_seq OWNER TO yuriko;
+
+--
+-- Name: sound_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yuriko
+--
+
+ALTER SEQUENCE sound_id_seq OWNED BY sound.id;
+
+
+--
 -- Name: video; Type: TABLE; Schema: public; Owner: yuriko; Tablespace: 
 --
 
@@ -165,7 +204,9 @@ CREATE TABLE video (
     description text,
     length integer NOT NULL,
     flag character(3),
-    youtube_id text
+    youtube_id text,
+    CONSTRAINT video_date_check CHECK ((datetaken < ('now'::text)::date)),
+    CONSTRAINT video_length_check CHECK ((length > 0))
 );
 
 
@@ -217,6 +258,13 @@ ALTER TABLE ONLY photo ALTER COLUMN id SET DEFAULT nextval('photo_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: yuriko
 --
 
+ALTER TABLE ONLY sound ALTER COLUMN id SET DEFAULT nextval('sound_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yuriko
+--
+
 ALTER TABLE ONLY video ALTER COLUMN id SET DEFAULT nextval('video_id_seq'::regclass);
 
 
@@ -237,11 +285,27 @@ ALTER TABLE ONLY gpx
 
 
 --
+-- Name: jpeg_orientation_pkey; Type: CONSTRAINT; Schema: public; Owner: yuriko; Tablespace: 
+--
+
+ALTER TABLE ONLY jpeg_orientation
+    ADD CONSTRAINT jpeg_orientation_pkey PRIMARY KEY (orientation);
+
+
+--
 -- Name: photo_pkey; Type: CONSTRAINT; Schema: public; Owner: yuriko; Tablespace: 
 --
 
 ALTER TABLE ONLY photo
     ADD CONSTRAINT photo_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sound_pkey; Type: CONSTRAINT; Schema: public; Owner: yuriko; Tablespace: 
+--
+
+ALTER TABLE ONLY sound
+    ADD CONSTRAINT sound_pkey PRIMARY KEY (id);
 
 
 --
@@ -253,6 +317,14 @@ ALTER TABLE ONLY video
 
 
 --
+-- Name: photo_orientation_fkey; Type: FK CONSTRAINT; Schema: public; Owner: yuriko
+--
+
+ALTER TABLE ONLY photo
+    ADD CONSTRAINT photo_orientation_fkey FOREIGN KEY (orientation) REFERENCES jpeg_orientation(orientation);
+
+
+--
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
 
@@ -260,6 +332,46 @@ REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- Name: album; Type: ACL; Schema: public; Owner: yuriko
+--
+
+REVOKE ALL ON TABLE album FROM PUBLIC;
+REVOKE ALL ON TABLE album FROM yuriko;
+GRANT ALL ON TABLE album TO yuriko;
+GRANT SELECT ON TABLE album TO readonly;
+
+
+--
+-- Name: gpx; Type: ACL; Schema: public; Owner: yuriko
+--
+
+REVOKE ALL ON TABLE gpx FROM PUBLIC;
+REVOKE ALL ON TABLE gpx FROM yuriko;
+GRANT ALL ON TABLE gpx TO yuriko;
+GRANT SELECT ON TABLE gpx TO readonly;
+
+
+--
+-- Name: photo_view; Type: ACL; Schema: public; Owner: yuriko
+--
+
+REVOKE ALL ON TABLE photo_view FROM PUBLIC;
+REVOKE ALL ON TABLE photo_view FROM yuriko;
+GRANT ALL ON TABLE photo_view TO yuriko;
+GRANT SELECT ON TABLE photo_view TO readonly;
+
+
+--
+-- Name: video; Type: ACL; Schema: public; Owner: yuriko
+--
+
+REVOKE ALL ON TABLE video FROM PUBLIC;
+REVOKE ALL ON TABLE video FROM yuriko;
+GRANT ALL ON TABLE video TO yuriko;
+GRANT SELECT ON TABLE video TO readonly;
 
 
 --
