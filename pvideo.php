@@ -43,7 +43,7 @@ class Video extends AlbumObject {
     $date = DBConn::date_toJapanese($this->date);
     $dir = $psqlAlbum['ThumbnailDir'];
     $playbutton_url = $psqlAlbum['AlbumLibDir']."play-icon.png";
-    $thumbnail_filename = str_replace("MP4", "JPG", $this->filename);
+    $thumbnail_filename = str_replace(array("MP4", "AVI"), "JPG", $this->filename);
   
     return 
 <<<HEREDOC
