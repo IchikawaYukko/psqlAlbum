@@ -16,10 +16,17 @@
 
 	$db->conn();
 	$query_string = htmlspecialchars($_GET['query'], ENT_QUOTES|'ENT_HTML401');
-	$photo = Photo::getObjectsBySearchQuery($query_string);
-	$video = Video::getObjectsBySearchQuery($query_string);
+	try {
+		$photo = Photo::getObjectsBySearchQuery($query_string);
+		$sns = new SNS(title(), $psqlAlbum['Description'], $photo[0]->getFileURL());
+	} catch (Exception $e) {
+		$sns = new SNS(title(), $psqlAlbum['Description'], NULL);
+	}
 
-	$sns = new SNS(title(), $psqlAlbum['Description'], $photo[0]->getFileURL()); 
+	try {
+		$video = Video::getObjectsBySearchQuery($query_string);
+	} catch(Exception $e) {
+	}
   }
 
   function title() {

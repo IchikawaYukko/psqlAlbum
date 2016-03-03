@@ -94,6 +94,10 @@ EOM
       $result = $db->nextRow();
       $sounds[] = new Sound($result);
     }
+
+    if($db->isNoResult()) {
+      throw new Exception('AlbumObjectNotFound');
+    }
     
     return $sounds;
   }
@@ -105,6 +109,10 @@ EOM
      while($db->hasMoreRows()) {
       $result = $db->nextRow();
       $sounds[] = new Sound($result);
+    }
+
+    if($db->isNoResult()) {
+      throw new Exception('AlbumObjectNotFound');
     }
 
     return $sounds;

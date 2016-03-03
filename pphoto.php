@@ -83,7 +83,11 @@ HEREDOC;
       $result = $db->nextRow();
       $photos[] = new Photo($result);
     }
-    
+
+    if($db->isNoResult()) {
+      throw new Exception('AlbumObjectNotFound');
+    }
+
     return $photos;  
   }
 
@@ -101,6 +105,9 @@ HEREDOC;
       $photos[] = new Photo($result);
     }
 
+    if($db->isNoResult()) {
+      throw new Exception('AlbumObjectNotFound');
+    }
     return $photos;
   }
   

@@ -15,9 +15,17 @@
 
 	$db->conn();
 	$album = new Album($_GET['id']);
-	//$album = new Album(2);
-	$photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
-	$video = Video::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+	
+	try {
+		$photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+ 		$sns = new SNS(title(), $psqlAlbum['Description'], $photo[0]->getFileURL());
+	} catch (Exception $e) {
+		$sns = new SNS(title(), $psqlAlbum['Description'], NULL);
+	}
+	try {
+		$video = Video::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+	} catch(Exception $e) {
+	}
 	$gpx = GPX::getGPXsInDateRange($album->getDatebegin(), $album->getDateend());
 
 	$sns = new SNS($album->getTitle(), $album->getDescription(), $photo[0]->getFileURL());

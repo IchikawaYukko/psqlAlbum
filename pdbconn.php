@@ -65,6 +65,14 @@ class DBConn {
   public function hasMoreRows() {
     return $this->rowcount < pg_num_rows($this->data);
   }
+
+  public function isNoResult() {
+    if( pg_num_rows($this->data) == 0 ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   
   public static function date_toJapanese($date) {
     $temp = substr($date, 0, 4);
