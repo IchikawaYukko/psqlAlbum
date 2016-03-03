@@ -11,7 +11,7 @@
   $db = new DBconn($db_param);
 
   function init() {
-    global $photo, $video, $album, $gpx, $db, $sns;
+    global $psqlAlbum, $photo, $video, $album, $gpx, $db, $sns;
 
 	$db->conn();
 	$album = new Album($_GET['id']);
@@ -73,11 +73,15 @@ foreach($gpx as $data) {
 		<HR>
 		<DIV class="container">
 <?php
-foreach($photo as $data) {
-	print $data->toHTMLthumbnail();
+if(!is_null($photo)) {
+	foreach($photo as $data) {
+		print $data->toHTMLthumbnail();
+	}
 }
-foreach($video as $data) {
-	print $data->toHTMLthumbnail();
+if(!is_null($video)) {
+	foreach($video as $data) {
+		print $data->toHTMLthumbnail();
+	}
 }?>
 		</DIV>
 		<HR>

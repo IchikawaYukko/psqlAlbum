@@ -60,12 +60,17 @@ print $sns->toTwitterCards('photo');
 		<HR>
 		<DIV class="container">
 <?php
-foreach($photo as $data) {
-	print $data->toHTMLthumbnail();
+if(!is_null($photo)) {
+        foreach($photo as $data) {
+                print $data->toHTMLthumbnail();
+        }
 }
-foreach($video as $data) {
-	print $data->toHTMLthumbnail();
-}?>
+if(!is_null($video)) {
+        foreach($video as $data) {
+                print $data->toHTMLthumbnail();
+        }
+}
+?>
 		</DIV>
 		<HR>
 		<A href="index.php">戻る</A>
