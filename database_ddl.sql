@@ -164,7 +164,7 @@ CREATE TABLE sound (
     description text,
     length integer NOT NULL,
     flag character(3),
-    CONSTRAINT sound_datetaken_check CHECK ((datetaken > ('now'::text)::date)),
+    CONSTRAINT sound_datetaken_check CHECK ((datetaken < ('now'::text)::date)),
     CONSTRAINT sound_length_check CHECK ((length > 0))
 );
 
