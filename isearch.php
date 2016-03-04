@@ -4,14 +4,15 @@
   require_once(dirname(__FILE__).'/palbum.php');
   require_once(dirname(__FILE__).'/pphoto.php');
   require_once(dirname(__FILE__).'/pvideo.php');
+  require_once(dirname(__FILE__).'/psound.php');
   require_once(dirname(__FILE__).'/pgpx.php');
   require_once(dirname(__FILE__).'/psns.php');
 
-  $photo; $video; $query_string; $sns;
+  $photo; $video; $sound; $query_string; $sns; $result_count;
   $db = new DBconn($db_param);
 
   function init() {
-    global $photo, $video, $db, $query_string, $sns;
+    global $photo, $video, $sound, $db, $query_string, $sns, $result_count;
     global $psqlAlbum;
 
 	$db->conn();
@@ -27,6 +28,13 @@
 		$video = Video::getObjectsBySearchQuery($query_string);
 	} catch(Exception $e) {
 	}
+
+	try {
+		$sound = Sound::getObjectsBySearchQuery($query_string);
+	} catch(Exception $e) {
+	}
+
+	$result_count = count($photo) + count($video) + count($sound);
   }
 
   function title() {
@@ -50,7 +58,7 @@ print $sns->toTwitterCards('photo');
 		<TITLE><?php print title(); ?></TITLE>
 	</HEAD>
 	<BODY>
-		<H1><?php print "「".$query_string."」の検索結果(".count($photo)."件)"; ?></H1>
+		<H1><?php print "「{$query_string}」の検索結果({$result_count}件)"; ?></H1>
 		<FORM method="GET" action="index.php" accept-charset="UTF-8">
 			<INPUT type="text" name="query" maxlength="64" value="<?php print $query_string; ?>" placeholder="アルバム全体を検索">
 			<INPUT type="submit" value="検索">
@@ -67,6 +75,11 @@ if(!is_null($photo)) {
 }
 if(!is_null($video)) {
         foreach($video as $data) {
+                print $data->toHTMLthumbnail();
+        }
+}
+if(!is_null($sound)) {
+        foreach($sound as $data) {
                 print $data->toHTMLthumbnail();
         }
 }

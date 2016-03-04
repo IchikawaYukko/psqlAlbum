@@ -4,14 +4,15 @@
   require_once(dirname(__FILE__).'/palbum.php');
   require_once(dirname(__FILE__).'/pphoto.php');
   require_once(dirname(__FILE__).'/pvideo.php');
+  require_once(dirname(__FILE__).'/psound.php');
   require_once(dirname(__FILE__).'/pgpx.php');
   require_once(dirname(__FILE__).'/psns.php');
 
-  $album; $photo; $video; $gpx; $sns;
+  $album; $photo; $video; $sound; $gpx; $sns;
   $db = new DBconn($db_param);
 
   function init() {
-    global $psqlAlbum, $photo, $video, $album, $gpx, $db, $sns;
+    global $psqlAlbum, $photo, $video, $sound, $album, $gpx, $db, $sns;
 
 	$db->conn();
 	$album = new Album($_GET['id']);
@@ -26,6 +27,11 @@
 		$video = Video::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
 	} catch(Exception $e) {
 	}
+	try {
+		$sound = Sound::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+	} catch(exception $e) {
+	}
+
 	$gpx = GPX::getGPXsInDateRange($album->getDatebegin(), $album->getDateend());
 
 	$sns = new SNS($album->getTitle(), $album->getDescription(), $photo[0]->getFileURL());
@@ -82,6 +88,10 @@ if(!is_null($video)) {
 	foreach($video as $data) {
 		print $data->toHTMLthumbnail();
 	}
+}if(!is_null($sound)) {
+        foreach($sound as $data) {
+                print $data->toHTMLthumbnail();
+        }
 }?>
 		</DIV>
 		<HR>

@@ -1,14 +1,14 @@
 <?php
-  require_once('settings.php');
+  //require_once('settings.php');
 
-  if(isset($_GET['pid']) == TRUE or isset($_GET['vid']) == TRUE) {
-    require_once(dirname(__FILE__)."/".$psqlAlbum['AlbumLibDir'].'idetail.php');
+  if(isset($_GET['pid']) or isset($_GET['vid']) or isset($_GET['sid'])) {
+    require_once('idetail.php');
   } elseif(isset($_GET['aid']) == TRUE) {
     $_GET['id'] = $_GET['aid'];
-    require_once(dirname(__FILE__)."/".$psqlAlbum['AlbumLibDir'].'ialbum.php');
+    require_once('ialbum.php');
   } elseif(isset($_GET['query']) == TRUE) {
-    require_once(dirname(__FILE__)."/".$psqlAlbum['AlbumLibDir'].'isearch.php');
+    require_once('isearch.php');
   } else {
-    require_once(dirname(__FILE__)."/".$psqlAlbum['AlbumLibDir'].'iindex.php');
+    require_once('iindex.php');
   }
 ?>

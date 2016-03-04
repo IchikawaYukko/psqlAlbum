@@ -6,6 +6,7 @@
   require_once('settings.php');
   require_once(dirname(__FILE__).'/pphoto.php');
   require_once(dirname(__FILE__).'/pvideo.php');
+  require_once(dirname(__FILE__).'/psound.php');
   require_once(dirname(__FILE__).'/psns.php');
 
   $obj;	//Object which show in this page.
@@ -19,9 +20,12 @@
     if(isset($_GET['pid'])) {
       //photo
       $obj = new Photo($_GET['pid']);
-    } else {
+    } elseif(isset($_GET['vid'])) {
       //video
       $obj = new Video($_GET['vid']);
+    } else {
+      //sound
+      $obj = new Sound($_GET['sid']);
     }
 
     $sns = new SNS($obj->getTitle(), $obj->getDescription(), $obj->getFileURL());

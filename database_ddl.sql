@@ -365,6 +365,16 @@ GRANT SELECT ON TABLE photo_view TO readonly;
 
 
 --
+-- Name: sound; Type: ACL; Schema: public; Owner: yuriko
+--
+
+REVOKE ALL ON TABLE sound FROM PUBLIC;
+REVOKE ALL ON TABLE sound FROM yuriko;
+GRANT ALL ON TABLE sound TO yuriko;
+GRANT SELECT ON TABLE sound TO readonly;
+
+
+--
 -- Name: video; Type: ACL; Schema: public; Owner: yuriko
 --
 

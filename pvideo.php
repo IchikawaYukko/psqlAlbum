@@ -23,7 +23,6 @@ class Video extends AlbumObject {
       //Connect DB and fetch rows.
       $this->db_id = $id;
 
-      //$db->query("SELECT video.id AS id,filename,datetaken,video.title AS title,video.description AS description,length,path_photo FROM album,video WHERE datetaken <= date_end AND datetaken >= date_begin AND video.id = $1 ORDER BY video.id;", array($id));
       $db->query("SELECT * FROM video WHERE id = $1;", array($id));
       $result = $db->result_rows();
 
@@ -63,7 +62,7 @@ HEREDOC;
 
     if(is_null($this->youtube_id)) {
       //youtube_idがnullの場合はHTML5の<video>でサーバのmp4ファイルを再生。(重い…)
-      $videotag = "<VIDEO src=\"$this->filename\" alt=\"$this->title\">";
+      $videotag = "<VIDEO src=\"$this->filename\" alt=\"$this->title\" controls>";
     } else {
       //youtube_idがnullでない(YouTubeに動画がある)場合は埋め込んで再生(推奨)
       $videotag = "<iframe width=\"960\" height=\"720\" src=\"https://www.youtube.com/embed/$this->youtube_id\" frameborder=\"0\" allowfullscreen></iframe>";

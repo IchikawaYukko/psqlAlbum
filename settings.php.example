@@ -21,6 +21,7 @@
   $psqlAlbum['AlbumLibDir'] = "../lib/psqlAlbum/";
   $psqlAlbum['PhotoDir']    = "./";
   $psqlAlbum['VideoDir']    = "video/";
+  $psqlAlbum['SoundDir']    = "sound/";
   $psqlAlbum['ThumbnailDir']= "thumbs/";
   $psqlAlbum['GPXdir']      = "GPX/";
   //PostgreSQL settings.

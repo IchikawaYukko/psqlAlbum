@@ -22,7 +22,7 @@ class Sound extends AlbumObject {
       //Connect DB and fetch rows.
       $this->db_id = $id;
 
-      $db->query("SELECT * FROM video WHERE id = $1;", array($id));
+      $db->query("SELECT * FROM sound WHERE id = $1;", array($id));
       $result = $db->result_rows();
 
       $this->filename	= $psqlAlbum['SoundDir'];
@@ -38,12 +38,13 @@ class Sound extends AlbumObject {
     global $psqlAlbum;
     $style ="";
     $date = DBConn::date_toJapanese($this->date);
-    $dir = $psqlAlbum['ThumbnailDir'];
+    //$dir = $psqlAlbum['ThumbnailDir'];
+    $playbutton_url = $psqlAlbum['AlbumLibDir']."play-icon.png";
   
     return 
 <<<HEREDOC
 <DIV class="album_object">
-  <A href="index.php?sid=$this->db_id"><IMG class="thumbs" style="$style" src="$dir$this->filename" alt="$this->title"></A>
+  <A href="index.php?sid=$this->db_id"><IMG class="thumbs" style="$style" src="$playbutton_url" alt="$this->title"></A>
   <DIV class="title">$this->title</DIV>
   <DIV class="description">$this->description</DIV>
 </DIV>
@@ -126,6 +127,11 @@ EOM
   }
   public function getFilename() {
     return $this->filename;
+  }
+  public function getFileURL() {
+    global $psqlAlbum;
+
+    return $psqlAlbum['AlbumRoot'] . $psqlAlbum['PhotoDir'] . $this->filename;
   }
 }
 ?>
