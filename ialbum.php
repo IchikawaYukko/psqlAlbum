@@ -33,8 +33,6 @@
 	}
 
 	$gpx = GPX::getGPXsInDateRange($album->getDatebegin(), $album->getDateend());
-
-	$sns = new SNS($album->getTitle(), $album->getDescription(), $photo[0]->getFileURL());
   }
 
   function title() {
