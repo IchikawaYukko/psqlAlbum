@@ -70,6 +70,6 @@ foreach($album as $data) {
   print $data->toHTML();
 }
 ?>
-		<A href="album.php?datebegin=20120101&dateend=20120627&photo=no">ビデオアルバム</A>
+		<A href="index.php?type=video_album">ビデオアルバム</A>
 	</BODY>
 </HTML>
