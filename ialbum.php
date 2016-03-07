@@ -14,25 +14,35 @@
   function init() {
     global $psqlAlbum, $photo, $video, $sound, $album, $gpx, $db, $sns;
 
-	$db->conn();
-	$album = new Album($_GET['id']);
-	
-	try {
-		$photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
- 		$sns = new SNS(title(), $psqlAlbum['Description'], $photo[0]->getFileURL());
-	} catch (Exception $e) {
-		$sns = new SNS(title(), $psqlAlbum['Description'], NULL);
-	}
-	try {
-		$video = Video::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
-	} catch(Exception $e) {
-	}
-	try {
-		$sound = Sound::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
-	} catch(exception $e) {
-	}
+    $db->conn();
+    if(isset($_GET['type'])) {
+      if($_GET['type'] == 'video_album') {
+        try {
+          $video = Video::getObjectsBySearchQuery("");
+        } catch(Exception $e) {
+        }
+        $sns = new SNS("ビデオアルバム", $psqlAlbum['Description'], NULL);
+      }
+    } else {
+      $album = new Album($_GET['id']);
 
-	$gpx = GPX::getGPXsInDateRange($album->getDatebegin(), $album->getDateend());
+      try {
+        $photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+        $sns = new SNS(title(), $psqlAlbum['Description'], $photo[0]->getFileURL());
+      } catch (Exception $e) {
+        $sns = new SNS(title(), $psqlAlbum['Description'], NULL);
+      }
+      try {
+        $video = Video::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+      } catch(Exception $e) {
+      }
+      try {
+        $sound = Sound::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+      } catch(exception $e) {
+      }
+
+      $gpx = GPX::getGPXsInDateRange($album->getDatebegin(), $album->getDateend());
+    }
   }
 
   function title() {
@@ -59,7 +69,7 @@ print $sns->toTwitterCards('photo');
 		<SCRIPT language="JavaScript"><!--
 		  var gpx = <?php print GPX::arrayToJSON($gpx); ?>
 		// --></SCRIPT>
-		<TITLE><?php print ($album->getTitle()." - ".$psqlAlbum['AlbumName']); ?></TITLE>
+		<TITLE><?php print (title()); ?></TITLE>
 	</HEAD>
 	<BODY onload="mapinit(gpx);">
 		<H1><?php print $album->getTitle(); ?></H1>
@@ -78,18 +88,18 @@ foreach($gpx as $data) {
 		<DIV class="container">
 <?php
 if(!is_null($photo)) {
-	foreach($photo as $data) {
-		print $data->toHTMLthumbnail();
-	}
+  foreach($photo as $data) {
+    print $data->toHTMLthumbnail();
+  }
 }
 if(!is_null($video)) {
-	foreach($video as $data) {
-		print $data->toHTMLthumbnail();
-	}
+  foreach($video as $data) {
+    print $data->toHTMLthumbnail();
+  }
 }if(!is_null($sound)) {
-        foreach($sound as $data) {
-                print $data->toHTMLthumbnail();
-        }
+  foreach($sound as $data) {
+    print $data->toHTMLthumbnail();
+  }
 }?>
 		</DIV>
 		<HR>
