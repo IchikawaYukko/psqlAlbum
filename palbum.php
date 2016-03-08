@@ -32,10 +32,18 @@ class Album {
   public function toHTML() {
     $datebegin = DBConn::date_toJapanese($this->datebegin);
     $dateend = DBConn::date_toJapanese($this->dateend);
+
+    if($datebegin == $dateend) {
+      return
+<<<EOM
+<A href="index.php?aid=$this->db_id">$datebegin</A>$this->title<BR>
+EOM;
+    } else {
     return 
 <<<HEREDOC
 <A href="index.php?aid=$this->db_id">$datebegin ～ $dateend</A>$this->title<BR>
 HEREDOC;
+    }
   }
   
   static function getAllAlbum() {
