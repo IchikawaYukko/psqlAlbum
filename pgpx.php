@@ -26,7 +26,7 @@ class GPX {
   }
   
   static function getGPXsInDateRange($datebegin, $dateend) {
-  global $db,$db_param;
+    global $db,$db_param;
     
     $db->query("SELECT * FROM gpx WHERE date BETWEEN $1 AND $2 ORDER BY date;", array($datebegin, $dateend));
     while($db->hasMoreRows()) {
@@ -65,11 +65,4 @@ class GPX {
 HEREDOC;
   }
 }
-
-/*Debug Codes*/
-/*$db = new DBconn($db_param);
-$db->conn();
-$result = GPX::getGPXsInDateRange("2011-09-10","2011-09-12");
-print GPX::arrayToJSON($result);
-$db->close();*/
 ?>
