@@ -57,7 +57,7 @@ HEREDOC;
     $date = DBConn::date_toJapanese($this->date);
     $dir = $psqlAlbum['SoundDir'];
 
-    $audiotag = "<AUDIO src=\"$this->filename\" alt=\"$this->title\" controls>";
+    $audiotag = "<AUDIO src=\"$this->filename\" alt=\"$this->title\" controls></AUDIO>";
 
     return 
 <<<HEREDOC
