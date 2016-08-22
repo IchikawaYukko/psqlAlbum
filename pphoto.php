@@ -2,7 +2,7 @@
 require_once(dirname(__FILE__).'/palbum_object.php');
 require_once('settings.php');
 
-class Photo extends AlbumObject {
+class Photo extends AlbumObject implements AlbumObjectInterface {
   private $db_id, $filename, $date, $title, $description, $orientation;
 
   public function __construct($id) {

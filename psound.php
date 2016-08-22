@@ -2,7 +2,7 @@
 require_once(dirname(__FILE__).'/palbum_object.php');
 require_once('settings.php');
 
-class Sound extends AlbumObject {
+class Sound extends AlbumObject implements AlbumObjectInterface {
   private $db_id, $filename, $date, $title, $description, $length;
 
   public function __construct($id) {

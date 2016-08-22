@@ -2,7 +2,7 @@
 require_once(dirname(__FILE__).'/palbum_object.php');
 require_once('settings.php');
 
-class Video extends AlbumObject {
+class Video extends AlbumObject implements AlbumObjectInterface {
   private $db_id, $filename, $date, $title, $description, $length, $youtube_id;
 
   public function __construct($id) {
