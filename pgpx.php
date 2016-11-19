@@ -57,11 +57,11 @@ class GPX {
   public function toHTML() {
     global $psqlAlbum;
     $date = DBConn::date_toJapanese($this->date);
-    $dir = $psqlAlbum['GPXdir'];
+    //$dir = $psqlAlbum['GPXdir'];
 
     return
 <<<HEREDOC
-<A href="$dir$this->filename">GPSデータ:$date</A><BR>
+<A href="$this->filename">GPSデータ:$date</A><BR>
 HEREDOC;
   }
 }
