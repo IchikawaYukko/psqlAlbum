@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.2
--- Dumped by pg_dump version 9.5.2
+-- Dumped from database version 9.5.5
+-- Dumped by pg_dump version 9.5.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -14,14 +14,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -44,9 +44,9 @@ CREATE TABLE album (
     title text,
     description text,
     path_photo character varying(64) NOT NULL,
-    CONSTRAINT nanjing_check CHECK ((date_end >= date_begin)),
-    CONSTRAINT nanjing_date_begin_check CHECK ((date_begin < ('now'::text)::date)),
-    CONSTRAINT nanjing_date_end_check CHECK ((date_end < ('now'::text)::date))
+    CONSTRAINT album_check CHECK ((date_end >= date_begin)),
+    CONSTRAINT album_date_begin_check CHECK ((date_begin <= ('now'::text)::date)),
+    CONSTRAINT album_date_end_check CHECK ((date_end <= ('now'::text)::date))
 );
 
 
@@ -133,8 +133,7 @@ CREATE TABLE photo (
     description text,
     flag character(3),
     orientation smallint DEFAULT 1 NOT NULL,
-    CONSTRAINT nanjing_photo_datetaken_check CHECK ((datetaken < ('now'::text)::date)),
-    CONSTRAINT nanjing_photo_orientation_check CHECK (((orientation > 0) AND (orientation <= 8)))
+    CONSTRAINT photo_datetaken_check CHECK ((datetaken <= ('now'::text)::date))
 );
 
 
@@ -232,7 +231,9 @@ CREATE TABLE video (
     description text,
     length integer NOT NULL,
     flag character(3),
-    youtube_id text
+    youtube_id text,
+    CONSTRAINT video_date_check CHECK ((datetaken <= ('now'::text)::date)),
+    CONSTRAINT video_length_check CHECK ((length > 0))
 );
 
 
@@ -311,6 +312,14 @@ ALTER TABLE ONLY gpx
 
 
 --
+-- Name: jpeg_orientation_pkey; Type: CONSTRAINT; Schema: public; Owner: yuriko
+--
+
+ALTER TABLE ONLY jpeg_orientation
+    ADD CONSTRAINT jpeg_orientation_pkey PRIMARY KEY (orientation);
+
+
+--
 -- Name: photo_pkey; Type: CONSTRAINT; Schema: public; Owner: yuriko
 --
 
@@ -332,6 +341,14 @@ ALTER TABLE ONLY sound
 
 ALTER TABLE ONLY video
     ADD CONSTRAINT video_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: photo_orientation_fkey; Type: FK CONSTRAINT; Schema: public; Owner: yuriko
+--
+
+ALTER TABLE ONLY photo
+    ADD CONSTRAINT photo_orientation_fkey FOREIGN KEY (orientation) REFERENCES jpeg_orientation(orientation);
 
 
 --
