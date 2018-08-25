@@ -4,7 +4,7 @@
   $photos = array();
   $thumbs = array();
 
-  exec("source ~/OpenStackAuth.sh;swift list $container", $output);
+  exec("source ./OpenStackAuth.sh;swift list $container", $output);
 
   foreach ($output as $file) {
     if(stripos($file, '.jpg') !== false) {
@@ -19,9 +19,9 @@
     if(in_array($p, $thumbs, true)) {
     } else {
       echo $p." thumb-notfound\n";
-      echo run_cmd("source ~/OpenStackAuth.sh;swift download $container $p");
+      echo run_cmd("source ./OpenStackAuth.sh;swift download $container $p");
       echo run_cmd("convert -resize 220x $p tmp.jpg");
-      echo run_cmd("source ~/OpenStackAuth.sh;swift upload --object-name thumbs/$p $container tmp.jpg");
+      echo run_cmd("source ./OpenStackAuth.sh;swift upload --object-name thumbs/$p $container tmp.jpg");
     }
   }
 
