@@ -34,7 +34,11 @@ class GPX {
       $gpxs[] = new GPX($result);
     }
 
-    return $gpxs;
+    if(isset($gpxs)) {
+      return $gpxs;
+    } else {
+      return array();
+    }
   }
 
   static function arrayToJSON($gpxarray) {
