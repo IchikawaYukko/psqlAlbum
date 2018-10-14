@@ -17,4 +17,3 @@
     //アルバム一覧(トップページ)
     require_once('iindex.php');
   }
-?>

@@ -15,4 +15,3 @@ interface AlbumObjectInterface {
   static public function getObjectsInDateRange($datebegin, $dateend);
   static public function getObjectsBySearchQuery($query);
 }
-?>

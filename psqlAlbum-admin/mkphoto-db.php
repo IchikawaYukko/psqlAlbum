@@ -45,4 +45,3 @@
   }
 $sql .= "COMMIT;";
 echo $sql;
-?>

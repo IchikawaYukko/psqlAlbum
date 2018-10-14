@@ -32,4 +32,3 @@ function run_cmd($command) {
   echo "\n";
 }
 #  var_dump( $thumbs );
-?>

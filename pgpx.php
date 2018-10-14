@@ -69,4 +69,3 @@ class GPX {
 HEREDOC;
   }
 }
-?>

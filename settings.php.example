@@ -29,4 +29,3 @@
   $db_param['DBname']       = "southeast_asia2012";
   $db_param['Username']     = "yuriko";
   $db_param['Password']     = "********************";
-?>

@@ -133,4 +133,3 @@ EOM
     return $psqlAlbum['AlbumRoot'] . $psqlAlbum['PhotoDir'] . $this->filename;
   }
 }
-?>

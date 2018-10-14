@@ -72,4 +72,3 @@ HEREDOC;
     return $this->dateend;
   }
 }
-?>
