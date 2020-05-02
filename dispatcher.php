@@ -6,9 +6,13 @@
     // Show object detail
     require_once('idetail.php');
   } elseif(isset($_GET['aid'])) {
-    // Show Album
-    $_GET['id'] = $_GET['aid'];
-    require_once('ialbum.php');
+    if(isset($_GET['getgpx'])) {
+      // return JSON of GPXs
+      require_once('gpxjson.php');
+    } else {
+      // Show Album
+      require_once('ialbum.php');
+    }
   } elseif(isset($_GET['query'])) {
     // Search
     require_once('isearch.php');

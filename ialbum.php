@@ -24,7 +24,7 @@
         $sns = new SNS("ビデオアルバム", $psqlAlbum['Description'], NULL);
       }
     } else {
-      $album = new Album($_GET['id']);
+      $album = new Album($_GET['aid']);
 
       try {
         $photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
@@ -62,13 +62,11 @@ print $sns->toFacebookOGP('article');
 print $sns->toTwitterCards('photo');
 ?>
 		<LINK rel="stylesheet" type="text/css" href="<?php print $psqlAlbum['AlbumLibDir']; ?>album.css">
-		<link rel="canonical" href="<?php print $psqlAlbum['AlbumRoot'].'index.php?aid='.$_GET['id']; ?>">
+		<link rel="canonical" href="<?php print $psqlAlbum['AlbumRoot'].'index.php?aid='.$_GET['aid']; ?>">
 		<SCRIPT language="JavaScript" src="<?php print $psqlAlbum['LibDir']; ?>OpenLayers.js"></SCRIPT>
-		<SCRIPT language="JavaScript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></SCRIPT>
+		<SCRIPT language="JavaScript" src="https://www.openstreetmap.org/openlayers/OpenStreetMap.js"></SCRIPT>
 		<SCRIPT language="JavaScript" src="<?php print $psqlAlbum['AlbumLibDir']; ?>map.js"></SCRIPT>
-		<SCRIPT language="JavaScript"><!--
-		  var gpx = <?php print GPX::arrayToJSON($gpx); ?>
-		// --></SCRIPT>
+		<SCRIPT language="JavaScript" src="index.php?aid=<?php echo $_GET['aid'] ?>&getgpx=true"></SCRIPT>
 		<TITLE><?php print (title()); ?></TITLE>
 	</HEAD>
 	<BODY onload="mapinit(gpx);">
