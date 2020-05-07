@@ -65,11 +65,11 @@ print $sns->toTwitterCards('photo');
 		<link rel="canonical" href="<?php print $psqlAlbum['AlbumRoot'].'index.php?aid='.$_GET['aid']; ?>">
 		<SCRIPT language="JavaScript" src="<?php print $psqlAlbum['LibDir']; ?>OpenLayers.js"></SCRIPT>
 		<SCRIPT language="JavaScript" src="https://www.openstreetmap.org/openlayers/OpenStreetMap.js"></SCRIPT>
-		<SCRIPT language="JavaScript" src="<?php print $psqlAlbum['AlbumLibDir']; ?>map.js"></SCRIPT>
 		<SCRIPT language="JavaScript" src="index.php?aid=<?php echo $_GET['aid'] ?>&getgpx=true"></SCRIPT>
+		<SCRIPT language="JavaScript" src="<?php print $psqlAlbum['AlbumLibDir']; ?>map.js"></SCRIPT>
 		<TITLE><?php print (title()); ?></TITLE>
 	</HEAD>
-	<BODY onload="mapinit(gpx);">
+	<BODY>
 		<H1><?php print $album->getTitle(); ?></H1>
 		<P><STRONG>概要：</STRONG><?php print ($album->getDescription()); ?><BR><BR></P>
 		<DIV ID="canvas"></DIV>

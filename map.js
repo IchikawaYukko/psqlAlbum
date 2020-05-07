@@ -84,3 +84,7 @@ function getGPXInstance(layername, filename, strokecolor) {
         style: { strokeColor: strokecolor, strokeWidth: 5, strokeOpacity: 0.5 },
     });
 }
+
+window.addEventListener("DOMContentLoaded", function(event) {
+	mapinit(gpx);
+});
