@@ -4,9 +4,9 @@
 
   $db = new DBconn($db_param);
 
-  $ignore_dir = array("GPX/", "thumbs/", "video/");
-  $albums = array();
-  $dirs = array();
+  $ignore_dir = ["GPX/", "thumbs/", "video/"];
+  $albums = [];
+  $dirs = [];
   $sql = "BEGIN;\n";
 
   exec("source ./OpenStackAuth.sh;swift list -d / $container", $output);
@@ -18,7 +18,7 @@
   }
 
   $db->conn();
-  $db->query("SELECT date_begin FROM album", array());
+  $db->query("SELECT date_begin FROM album", []);
   while($db->hasMoreRows()) {
     $result = $db->nextRow();
     array_push($albums, $result["date_begin"]);

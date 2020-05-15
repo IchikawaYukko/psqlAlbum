@@ -4,10 +4,10 @@
 
   $db = new DBconn($db_param);
 
-# $ignore_dir = array("GPX/", "thumbs/", "video/");
+# $ignore_dir = ["GPX/", "thumbs/", "video/"];
 # $gpx_dir = "GPX/";
-  $photo_dbs = array();
-  $photo_files = array();
+  $photo_dbs = [];
+  $photo_files = [];
   $sql = "BEGIN;\n";
 
   exec("source ./OpenStackAuth.sh;swift list -p 20 $container", $output);
@@ -20,7 +20,7 @@
   }
 
   $db->conn();
-  $db->query("SELECT filename FROM photo", array());
+  $db->query("SELECT filename FROM photo", []);
   while($db->hasMoreRows()) {
     $result = $db->nextRow();
     array_push($photo_dbs, $result["filename"]);

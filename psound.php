@@ -22,7 +22,7 @@ class Sound extends AlbumObject implements AlbumObjectInterface {
       //Connect DB and fetch rows.
       $this->db_id = $id;
 
-      $db->query("SELECT * FROM sound WHERE id = $1;", array($id));
+      $db->query("SELECT * FROM sound WHERE id = $1;", [$id]);
       $result = $db->result_rows();
 
       $this->filename	= $psqlAlbum['SoundDir'];
@@ -89,7 +89,7 @@ WHERE datetaken <= date_end
   AND datetaken BETWEEN $1 AND $2
 ORDER BY sound.id;
 EOM
-, array($datebegin, $dateend));
+, [$datebegin, $dateend]);
     while($db->hasMoreRows()) {
       $result = $db->nextRow();
       $sounds[] = new Sound($result);
@@ -105,7 +105,7 @@ EOM
   public static function getObjectsBySearchQuery($query) {
     global $db;
 
-    $db->query("SELECT * FROM sound WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", array("%$query%"));
+    $db->query("SELECT * FROM sound WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", ["%$query%"]);
      while($db->hasMoreRows()) {
       $result = $db->nextRow();
       $sounds[] = new Sound($result);

@@ -19,7 +19,7 @@ class Album {
       $this->db_id = $id;
     
       //fetch path of photo
-      $db->query("SELECT * FROM album WHERE id = $1", array($id));
+      $db->query("SELECT * FROM album WHERE id = $1", [$id]);
       $result = $db->result_rows();
     
       $this->datebegin = $this->datebegin.$result['date_begin'];
@@ -49,7 +49,7 @@ HEREDOC;
   static function getAllAlbum() {
     global $db,$db_param;
     
-    $db->query("SELECT * FROM album ORDER BY date_begin;", array());
+    $db->query("SELECT * FROM album ORDER BY date_begin;", []);
     while($db->hasMoreRows()) {
       $result = $db->nextRow();
       $albums[] = new Album($result);

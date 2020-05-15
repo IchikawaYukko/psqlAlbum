@@ -22,7 +22,7 @@ class Photo extends AlbumObject implements AlbumObjectInterface {
       //Connect DB and fetch one record.
       $this->db_id = $id;
 
-      $db->query("SELECT * FROM photo_view WHERE id = $1 ORDER BY id;", array($id));
+      $db->query("SELECT * FROM photo_view WHERE id = $1 ORDER BY id;", [$id]);
       $result = $db->result_rows();
 
       $this->filename = $result['path_photo'];
@@ -78,7 +78,7 @@ HEREDOC;
   public static function getObjectsInDateRange($datebegin, $dateend) {
     global $db;
     
-    $db->query("SELECT id,filename,datetaken,title,description,orientation,path_photo FROM photo_view WHERE datetaken BETWEEN $1 AND $2 ORDER BY id;", array($datebegin, $dateend));
+    $db->query("SELECT id,filename,datetaken,title,description,orientation,path_photo FROM photo_view WHERE datetaken BETWEEN $1 AND $2 ORDER BY id;", [$datebegin, $dateend]);
     while($db->hasMoreRows()) {
       $result = $db->nextRow();
       $photos[] = new Photo($result);
@@ -95,9 +95,9 @@ HEREDOC;
     global $db;
 
     if($query == "") {
-      $db->query("SELECT * FROM photo_view ORDER BY id;", array());
+      $db->query("SELECT * FROM photo_view ORDER BY id;", []);
     } else {
-      $db->query("SELECT * FROM photo_view WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", array("%$query%"));
+      $db->query("SELECT * FROM photo_view WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", ["%$query%"]);
     }
 
     while($db->hasMoreRows()) {

@@ -1,8 +1,8 @@
 <?php
   $container = "NewZealand";
   $thumb_dirname = "thumbs/";
-  $photos = array();
-  $thumbs = array();
+  $photos = [];
+  $thumbs = [];
 
   exec("source ./OpenStackAuth.sh;swift list $container", $output);
 

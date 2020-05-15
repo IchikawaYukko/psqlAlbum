@@ -4,10 +4,10 @@
 
   $db = new DBconn($db_param);
 
-#  $ignore_dir = array("GPX/", "thumbs/", "video/");
+#  $ignore_dir = ["GPX/", "thumbs/", "video/"];
   $gpx_dir = "GPX/";
-  $gpx_dbs = array();
-  $gpx_files = array();
+  $gpx_dbs = [];
+  $gpx_files = [];
   $sql = "BEGIN;\n";
 
   exec("source ./OpenStackAuth.sh;swift list -p $gpx_dir $container", $output);
@@ -20,7 +20,7 @@
   }
 
   $db->conn();
-  $db->query("SELECT filename FROM gpx", array());
+  $db->query("SELECT filename FROM gpx", []);
   while($db->hasMoreRows()) {
     $result = $db->nextRow();
     array_push($gpx_dbs, $result["filename"]);

@@ -23,7 +23,7 @@ class Video extends AlbumObject implements AlbumObjectInterface {
       //Connect DB and fetch rows.
       $this->db_id = $id;
 
-      $db->query("SELECT * FROM video WHERE id = $1;", array($id));
+      $db->query("SELECT * FROM video WHERE id = $1;", [$id]);
       $result = $db->result_rows();
 
       $this->filename	= $psqlAlbum['VideoDir'];
@@ -42,7 +42,7 @@ class Video extends AlbumObject implements AlbumObjectInterface {
     $date = DBConn::date_toJapanese($this->date);
     $dir = $psqlAlbum['ThumbnailDir'];
     $playbutton_url = $psqlAlbum['AlbumLibDir']."play-icon.png";
-    $thumbnail_filename = str_replace(array("MP4", "AVI", "3gp"), "JPG", $this->filename);
+    $thumbnail_filename = str_replace(["MP4", "AVI", "3gp"], "JPG", $this->filename);
   
     return 
 <<<HEREDOC
@@ -82,7 +82,7 @@ HEREDOC;
   public static function getObjectsInDateRange($datebegin, $dateend) {
     global $db;
     
-    $db->query("SELECT video.id AS id,filename,datetaken,video.title AS title,video.description AS description,length,youtube_id,path_photo FROM album,video WHERE datetaken <= date_end AND datetaken >= date_begin AND datetaken BETWEEN $1 AND $2 ORDER BY video.id;", array($datebegin, $dateend));
+    $db->query("SELECT video.id AS id,filename,datetaken,video.title AS title,video.description AS description,length,youtube_id,path_photo FROM album,video WHERE datetaken <= date_end AND datetaken >= date_begin AND datetaken BETWEEN $1 AND $2 ORDER BY video.id;", [$datebegin, $dateend]);
     while($db->hasMoreRows()) {
       $result = $db->nextRow();
       $videos[] = new Video($result);
@@ -98,7 +98,7 @@ HEREDOC;
   public static function getObjectsBySearchQuery($query) {
     global $db;
 
-    $db->query("SELECT * FROM video WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", array("%$query%"));
+    $db->query("SELECT * FROM video WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", ["%$query%"]);
      while($db->hasMoreRows()) {
       $result = $db->nextRow();
       $videos[] = new Video($result);

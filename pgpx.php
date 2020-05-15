@@ -18,7 +18,7 @@ class GPX {
       $this->db_id = $id;
     
       //fetch path of photo
-      $db->query("SELECT * FROM gpx WHERE id = $1;", array($id));
+      $db->query("SELECT * FROM gpx WHERE id = $1;", [$id]);
       $result = $db->result_rows();
       $this->filename = $result['filename'];
       $this->date = $result['date'];
@@ -28,7 +28,7 @@ class GPX {
   static function getGPXsInDateRange($datebegin, $dateend) {
     global $db,$db_param;
     
-    $db->query("SELECT * FROM gpx WHERE date BETWEEN $1 AND $2 ORDER BY date;", array($datebegin, $dateend));
+    $db->query("SELECT * FROM gpx WHERE date BETWEEN $1 AND $2 ORDER BY date;", [$datebegin, $dateend]);
     while($db->hasMoreRows()) {
       $result = $db->nextRow();
       $gpxs[] = new GPX($result);
@@ -37,7 +37,7 @@ class GPX {
     if(isset($gpxs)) {
       return $gpxs;
     } else {
-      return array();
+      return [];
     }
   }
 
