@@ -33,7 +33,7 @@ print $sns->toTwitterCards('gallery', $psqlAlbum['Image0'], $psqlAlbum['Image1']
 		<!--
 .fb_iframe_widget > span
 {
-    vertical-align: baseline !important;
+	vertical-align: baseline !important;
 }
 		// -->
 		</Style>
@@ -43,12 +43,12 @@ print $sns->toTwitterCards('gallery', $psqlAlbum['Image0'], $psqlAlbum['Image1']
 <!-- Facebook いいね！ -->
 <div id="fb-root"></div>
 <script type="text/javascript">    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.0";
-        fjs.parentNode.insertBefore(js, fjs);
-    } (document, 'script', 'facebook-jssdk'));
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	} (document, 'script', 'facebook-jssdk'));
 </script>
 
 	<H1><?php print $psqlAlbum['AlbumName']; ?></H1>
@@ -67,7 +67,7 @@ print $sns->toTwitterCards('gallery', $psqlAlbum['Image0'], $psqlAlbum['Image1']
 	<HR>
 <?php
 foreach($album as $data) {
-  print $data->toHTML();
+	print $data->toHTML();
 }
 ?>
 		<A href="index.php?type=video_album">ビデオアルバム</A>

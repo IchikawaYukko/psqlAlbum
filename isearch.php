@@ -1,19 +1,19 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <?php
-  require_once('settings.php');
-  require_once(dirname(__FILE__).'/palbum.php');
-  require_once(dirname(__FILE__).'/pphoto.php');
-  require_once(dirname(__FILE__).'/pvideo.php');
-  require_once(dirname(__FILE__).'/psound.php');
-  require_once(dirname(__FILE__).'/pgpx.php');
-  require_once(dirname(__FILE__).'/psns.php');
+require_once('settings.php');
+require_once(dirname(__FILE__).'/palbum.php');
+require_once(dirname(__FILE__).'/pphoto.php');
+require_once(dirname(__FILE__).'/pvideo.php');
+require_once(dirname(__FILE__).'/psound.php');
+require_once(dirname(__FILE__).'/pgpx.php');
+require_once(dirname(__FILE__).'/psns.php');
 
-  $photo; $video; $sound; $query_string; $sns; $result_count;
-  $db = new DBconn($db_param);
+$photo; $video; $sound; $query_string; $sns; $result_count;
+$db = new DBconn($db_param);
 
-  function init() {
-    global $photo, $video, $sound, $db, $query_string, $sns, $result_count;
-    global $psqlAlbum;
+function init() {
+	global $photo, $video, $sound, $db, $query_string, $sns, $result_count;
+	global $psqlAlbum;
 
 	$db->conn();
 	$query_string = htmlspecialchars($_GET['query'], ENT_QUOTES|'ENT_HTML401');
@@ -35,15 +35,15 @@
 	}
 
 	$result_count = count($photo) + count($video) + count($sound);
-  }
+}
 
-  function title() {
-    global $psqlAlbum, $query_string;
+function title() {
+	global $psqlAlbum, $query_string;
 
-    return "検索結果:".$query_string." - ".$psqlAlbum['AlbumName'];
-  }
+	return "検索結果:".$query_string." - ".$psqlAlbum['AlbumName'];
+}
 
-  init();
+init();
 ?>
 <HTML LANG="<?php print $psqlAlbum['SiteLang']; ?>">
 	<HEAD>
@@ -69,19 +69,19 @@ print $sns->toTwitterCards('photo');
 		<DIV class="container">
 <?php
 if(!is_null($photo)) {
-        foreach($photo as $data) {
-                print $data->toHTMLthumbnail();
-        }
+	foreach($photo as $data) {
+		print $data->toHTMLthumbnail();
+	}
 }
 if(!is_null($video)) {
-        foreach($video as $data) {
-                print $data->toHTMLthumbnail();
-        }
+	foreach($video as $data) {
+		print $data->toHTMLthumbnail();
+	}
 }
 if(!is_null($sound)) {
-        foreach($sound as $data) {
-                print $data->toHTMLthumbnail();
-        }
+	foreach($sound as $data) {
+		print $data->toHTMLthumbnail();
+	}
 }
 ?>
 		</DIV>

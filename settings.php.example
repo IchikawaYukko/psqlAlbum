@@ -1,31 +1,31 @@
 <?php
-  $psqlAlbum['AlbumName']   = "東南アジア旅行2012";
-  $psqlAlbum['Description'] = "東南アジア旅行2012 写真アルバム";
-  $psqlAlbum['AlbumAuthor'] = "市川ゆり子";
-  $psqlAlbum['AuthorTwitterAccount'] = "@IchikawaYukko";
-  $psqlAlbum['SiteLang']    = "ja";   //<HTML lang="xx"> サイトの言語コード(ISO639)
-  $psqlAlbum['SiteLangFull']= "ja_JP";//サイトの言語コード(国名コード付き)
-  //URLs
-  $psqlAlbum['Domain']      = "ichikawayukko.mydns.jp";
-  $psqlAlbum['DomainName']  = "http://" . $psqlAlbum['Domain'] . "/";
-  $psqlAlbum['AlbumRoot']   = $psqlAlbum['DomainName']."SoutheastAsia2012/";
-  //Image URLs　サイトの代表画像
-  $psqlAlbum['Image0']      = "http://";
-  $psqlAlbum['Image1']      = "http://";
-  $psqlAlbum['Image2']      = "http://";
-  $psqlAlbum['Image3']      = "http://";
-  //Paths
-  $psqlAlbum['DocumentRoot']= "/mnt/data";
-  //Relative Paths (from AlbumRoot)
-  $psqlAlbum['LibDir']      = "../lib/";	//OpenLayers.js etc...
-  $psqlAlbum['AlbumLibDir'] = "../lib/psqlAlbum/";
-  $psqlAlbum['PhotoDir']    = "./";
-  $psqlAlbum['VideoDir']    = "video/";
-  $psqlAlbum['SoundDir']    = "sound/";
-  $psqlAlbum['ThumbnailDir']= "thumbs/";
-  $psqlAlbum['GPXdir']      = "GPX/";
-  //PostgreSQL settings.
-  $db_param['Server']       = "localhost";
-  $db_param['DBname']       = "southeast_asia2012";
-  $db_param['Username']     = "yuriko";
-  $db_param['Password']     = "********************";
+$psqlAlbum['AlbumName']		= "東南アジア旅行2012";
+$psqlAlbum['Description']	= "東南アジア旅行2012 写真アルバム";
+$psqlAlbum['AlbumAuthor']	= "市川ゆり子";
+$psqlAlbum['AuthorTwitterAccount'] = "@IchikawaYukko";
+$psqlAlbum['SiteLang']		= "ja";   //<HTML lang="xx"> サイトの言語コード(ISO639)
+$psqlAlbum['SiteLangFull']	= "ja_JP";//サイトの言語コード(国名コード付き)
+//URLs
+$psqlAlbum['Domain']		= "ichikawayukko.mydns.jp";
+$psqlAlbum['DomainName']	= "http://" . $psqlAlbum['Domain'] . "/";
+$psqlAlbum['AlbumRoot']		= $psqlAlbum['DomainName']."SoutheastAsia2012/";
+//Image URLs　サイトの代表画像
+$psqlAlbum['Image0']		= "http://";
+$psqlAlbum['Image1']		= "http://";
+$psqlAlbum['Image2']		= "http://";
+$psqlAlbum['Image3']		= "http://";
+//Paths
+$psqlAlbum['DocumentRoot']	= "/mnt/data";
+//Relative Paths (from AlbumRoot)
+$psqlAlbum['LibDir']		= "../lib/";	//OpenLayers.js etc...
+$psqlAlbum['AlbumLibDir']	= "../lib/psqlAlbum/";
+$psqlAlbum['PhotoDir']		= "./";
+$psqlAlbum['VideoDir']		= "video/";
+$psqlAlbum['SoundDir']		= "sound/";
+$psqlAlbum['ThumbnailDir']	= "thumbs/";
+$psqlAlbum['GPXdir']		= "GPX/";
+//PostgreSQL settings.
+$db_param['Server']			= "localhost";
+$db_param['DBname']			= "southeast_asia2012";
+$db_param['Username']		= "yuriko";
+$db_param['Password']		= "********************";

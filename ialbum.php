@@ -1,57 +1,57 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <?php
-  require_once('settings.php');
-  require_once(dirname(__FILE__).'/palbum.php');
-  require_once(dirname(__FILE__).'/pphoto.php');
-  require_once(dirname(__FILE__).'/pvideo.php');
-  require_once(dirname(__FILE__).'/psound.php');
-  require_once(dirname(__FILE__).'/pgpx.php');
-  require_once(dirname(__FILE__).'/psns.php');
+require_once('settings.php');
+require_once(dirname(__FILE__).'/palbum.php');
+require_once(dirname(__FILE__).'/pphoto.php');
+require_once(dirname(__FILE__).'/pvideo.php');
+require_once(dirname(__FILE__).'/psound.php');
+require_once(dirname(__FILE__).'/pgpx.php');
+require_once(dirname(__FILE__).'/psns.php');
 
-  $album; $photo; $video; $sound; $gpx; $sns;
-  $db = new DBconn($db_param);
+$album; $photo; $video; $sound; $gpx; $sns;
+$db = new DBconn($db_param);
 
-  function init() {
-    global $psqlAlbum, $photo, $video, $sound, $album, $gpx, $db, $sns;
+function init() {
+	global $psqlAlbum, $photo, $video, $sound, $album, $gpx, $db, $sns;
 
-    $db->conn();
-    if(isset($_GET['type'])) {
-      if($_GET['type'] == 'video_album') {
-        try {
-          $video = Video::getObjectsBySearchQuery("");
-        } catch(Exception $e) {
-        }
-        $sns = new SNS("ビデオアルバム", $psqlAlbum['Description'], NULL);
-      }
-    } else {
-      $album = new Album($_GET['aid']);
+	$db->conn();
+	if(isset($_GET['type'])) {
+		if($_GET['type'] == 'video_album') {
+			try {
+				$video = Video::getObjectsBySearchQuery("");
+			} catch(Exception $e) {
+			}
+			$sns = new SNS("ビデオアルバム", $psqlAlbum['Description'], NULL);
+		}
+	} else {
+		$album = new Album($_GET['aid']);
 
-      try {
-        $photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
-        $sns = new SNS(title(), $psqlAlbum['Description'], $photo[0]->getFileURL());
-      } catch (Exception $e) {
-        $sns = new SNS(title(), $psqlAlbum['Description'], NULL);
-      }
-      try {
-        $video = Video::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
-      } catch(Exception $e) {
-      }
-      try {
-        $sound = Sound::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
-      } catch(exception $e) {
-      }
+		try {
+			$photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+			$sns = new SNS(title(), $psqlAlbum['Description'], $photo[0]->getFileURL());
+		} catch (Exception $e) {
+			$sns = new SNS(title(), $psqlAlbum['Description'], NULL);
+		}
+		try {
+			$video = Video::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+		} catch(Exception $e) {
+		}
+		try {
+			$sound = Sound::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
+		} catch(exception $e) {
+		}
 
-      $gpx = GPX::getGPXsInDateRange($album->getDatebegin(), $album->getDateend());
-    }
-  }
+		$gpx = GPX::getGPXsInDateRange($album->getDatebegin(), $album->getDateend());
+	}
+}
 
-  function title() {
-    global $album, $psqlAlbum;
+function title() {
+	global $album, $psqlAlbum;
 
-    return $album->getTitle()." - ".$psqlAlbum['AlbumName'];
-  }
+	return $album->getTitle()." - ".$psqlAlbum['AlbumName'];
+}
 
-  init();
+init();
 ?>
 <HTML LANG="<?php print $psqlAlbum['SiteLang']; ?>">
 	<HEAD>
@@ -78,7 +78,7 @@ print $sns->toTwitterCards('photo');
 		GPSデータダウンロード<A href=../usingGPX.html>「GPSデータとは？」</A><BR>
 <?php
 foreach($gpx as $data) {
-        print $data->toHTML();
+	print $data->toHTML();
 }
 ?><BR>
 		写真をクリックすると大きいサイズの写真が表示されます。</P>
@@ -86,18 +86,18 @@ foreach($gpx as $data) {
 		<DIV class="container">
 <?php
 if(!is_null($photo)) {
-  foreach($photo as $data) {
-    print $data->toHTMLthumbnail();
-  }
+	foreach($photo as $data) {
+		print $data->toHTMLthumbnail();
+	}
 }
 if(!is_null($video)) {
-  foreach($video as $data) {
-    print $data->toHTMLthumbnail();
-  }
+	foreach($video as $data) {
+		print $data->toHTMLthumbnail();
+	}
 }if(!is_null($sound)) {
-  foreach($sound as $data) {
-    print $data->toHTMLthumbnail();
-  }
+	foreach($sound as $data) {
+		print $data->toHTMLthumbnail();
+	}
 }?>
 		</DIV>
 		<HR>

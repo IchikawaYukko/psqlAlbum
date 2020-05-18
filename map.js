@@ -1,4 +1,4 @@
-﻿// Start position for the map (hardcoded here for simplicity,
+// Start position for the map (hardcoded here for simplicity,
 // but maybe you want to get this from the URL params)
 var lat=32.020000
 var lon=118.900000
@@ -15,11 +15,11 @@ function mapinit(gpx){
 
 	//Create Map object
 	map = new OpenLayers.Map('canvas', {
-        controls:[
-            new OpenLayers.Control.Navigation(),
-            new OpenLayers.Control.PanZoomBar(),
-            new OpenLayers.Control.LayerSwitcher(),
-            new OpenLayers.Control.Attribution(),
+		controls:[
+			new OpenLayers.Control.Navigation(),
+			new OpenLayers.Control.PanZoomBar(),
+			new OpenLayers.Control.LayerSwitcher(),
+			new OpenLayers.Control.Attribution(),
 			new OpenLayers.Control.ScaleLine(),
 			new OpenLayers.Control.MousePosition({
 				prefix: "マウス座標 経度",
@@ -28,25 +28,25 @@ function mapinit(gpx){
 				displayProjection: new OpenLayers.Projection("EPSG:4326")
 			})
 		],
-        maxResolution: 156543.0399,	//something like to minimum zoom level
-        numZoomLevels: 19,
-        units: 'm',
+		maxResolution: 156543.0399,	//something like to minimum zoom level
+		numZoomLevels: 19,
+		units: 'm',
 	});
 
 	// Define the map layer
 	layerTransportMap = new OpenLayers.Layer.OSM.TransportMap("交通図");
 	map.addLayer(layerTransportMap);
 	var layerosm = new OpenLayers.Layer.OSM("オープンストリートマップ");
-    map.addLayer(layerosm);
+	map.addLayer(layerosm);
 	layerCycleMap = new OpenLayers.Layer.OSM.CycleMap("サイクリングマップ");
 	map.addLayer(layerCycleMap);
 	
 	map.setCenter(
-        new OpenLayers.LonLat(lon, lat).transform(
-            new OpenLayers.Projection("EPSG:4326"),
-            map.getProjectionObject()
-        ), zoom
-    );
+		new OpenLayers.LonLat(lon, lat).transform(
+			new OpenLayers.Projection("EPSG:4326"),
+			map.getProjectionObject()
+		), zoom
+	);
 
 	// Add the Layer with the GPX Track
 	layergpx = new Array();
@@ -59,7 +59,7 @@ function mapinit(gpx){
 		layergpx[i].events.register("loadend", layergpx[i], 
 			function () {
 				this.map.zoomToExtent(layergpx[0].getDataExtent());
-            		}
+					}
 		);
 	}
 }
@@ -71,18 +71,18 @@ function gpx_loaded(layer) {
 }
 
 function getGPXInstance(layername, filename, strokecolor) {
-    return new OpenLayers.Layer.Vector(layername, {
-        strategies: [new OpenLayers.Strategy.Fixed()],
-        protocol: new OpenLayers.Protocol.HTTP({
-            url: filename,
-            format: new OpenLayers.Format.GPX({
-                extractStyles: true,
-                extractAttributes: true,
-                mapDepth: 2
-            })
-        }),
-        style: { strokeColor: strokecolor, strokeWidth: 5, strokeOpacity: 0.5 },
-    });
+	return new OpenLayers.Layer.Vector(layername, {
+		strategies: [new OpenLayers.Strategy.Fixed()],
+		protocol: new OpenLayers.Protocol.HTTP({
+			url: filename,
+			format: new OpenLayers.Format.GPX({
+				extractStyles: true,
+				extractAttributes: true,
+				mapDepth: 2
+			})
+		}),
+		style: { strokeColor: strokecolor, strokeWidth: 5, strokeOpacity: 0.5 },
+	});
 }
 
 window.addEventListener("DOMContentLoaded", function(event) {

@@ -2,7 +2,7 @@
 session_start() or die('session start failed');
 
 if(!isset($_SESSION['username'])) {
-    die('you are not logged in yet');
+	die('you are not logged in yet');
 }
 
 $csrftoken = htmlspecialchars(hash('sha256', session_id()), ENT_QUOTES);
