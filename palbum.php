@@ -8,7 +8,7 @@ class Album {
 	public function __construct($id) {
 		global $db;
 
-		if("array" == gettype($id)) {
+		if(is_array($id)) {
 			$this->db_id = $id['id'];
 			$this->datebegin = $id['date_begin'];
 			$this->dateend = $id['date_end'];
@@ -36,7 +36,7 @@ class Album {
 		$datebegin = DBConn::date_toJapanese($this->datebegin);
 		$dateend = DBConn::date_toJapanese($this->dateend);
 
-		if($datebegin == $dateend) {
+		if($datebegin === $dateend) {
 			return
 <<<EOM
 <A href="index.php?aid=$this->db_id">$datebegin</A>$this->title<BR>
@@ -44,7 +44,7 @@ EOM;
 		} else {
 		return 
 <<<HEREDOC
-<A href="index.php?aid=$this->db_id">$datebegin ï½ž $dateend</A>$this->title<BR>
+<A href="index.php?aid=$this->db_id">$datebegin Ã¯Â½Å¾ $dateend</A>$this->title<BR>
 HEREDOC;
 		}
 	}

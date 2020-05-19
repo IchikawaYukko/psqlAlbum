@@ -26,7 +26,7 @@ class DBConn {
 	}
 
 	public function disconnect() {
-		if("pgsql link" == get_resource_type($this->link)) {
+		if("pgsql link" === get_resource_type($this->link)) {
 			pg_close($this->link);
 		}
 	}
@@ -62,7 +62,7 @@ class DBConn {
 	}
 
 	public function isNoResult() {
-		if( pg_num_rows($this->data) == 0 ) {
+		if( pg_num_rows($this->data) === 0 ) {
 			return true;
 		} else {
 			return false;

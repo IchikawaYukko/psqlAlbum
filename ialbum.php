@@ -15,7 +15,7 @@ function init() {
 
 	$db->conn();
 	if(isset($_GET['type'])) {
-		if($_GET['type'] == 'video_album') {
+		if($_GET['type'] === 'video_album') {
 			try {
 				$video = Video::getObjectsBySearchQuery("");
 			} catch(Exception $e) {

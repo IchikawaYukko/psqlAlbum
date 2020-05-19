@@ -8,7 +8,7 @@ class Photo extends AlbumObject implements AlbumObjectInterface {
 	public function __construct($id) {
 		global $db;
 
-		if("array" == gettype($id)) {
+		if(is_array($id)) {
 			//IF #id is not photo id (is array), just set it.
 			$this->db_id = $id['id'];
 			$this->filename = $id['path_photo'];
@@ -96,7 +96,7 @@ HEREDOC;
 	public static function getObjectsBySearchQuery($query) {
 		global $db;
 
-		if($query == "") {
+		if($query === "") {
 			$db->query("SELECT * FROM photo_view ORDER BY id;", []);
 		} else {
 			$db->query("SELECT * FROM photo_view WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", ["%$query%"]);

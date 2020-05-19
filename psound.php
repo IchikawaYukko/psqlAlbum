@@ -8,7 +8,7 @@ class Sound extends AlbumObject implements AlbumObjectInterface {
 	public function __construct($id) {
 		global $db, $psqlAlbum;
 
-		if("array" == gettype($id)) {
+		if(is_array($id)) {
 			//引数idが配列の場合
 			$this->db_id	= $id['id'];
 			$this->filename	= $psqlAlbum['SoundDir'];
