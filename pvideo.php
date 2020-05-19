@@ -24,6 +24,9 @@ class Video extends AlbumObject implements AlbumObjectInterface {
 			$this->db_id = $id;
 
 			$db->query("SELECT * FROM video WHERE id = $1;", [$id]);
+			if($db->isNoResult()) {
+				throw new Exception("Video Not Found");
+			}
 			$result = $db->result_rows();
 
 			$this->filename	= $psqlAlbum['VideoDir'];

@@ -20,6 +20,9 @@ class Album {
 
 			//fetch path of photo
 			$db->query("SELECT * FROM album WHERE id = $1", [$id]);
+			if($db->isNoResult()) {
+				throw new Exception("Album Not Found");
+			}
 			$result = $db->result_rows();
 
 			$this->datebegin = $this->datebegin.$result['date_begin'];

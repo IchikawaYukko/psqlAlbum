@@ -23,6 +23,9 @@ class Photo extends AlbumObject implements AlbumObjectInterface {
 			$this->db_id = $id;
 
 			$db->query("SELECT * FROM photo_view WHERE id = $1 ORDER BY id;", [$id]);
+			if($db->isNoResult()) {
+				throw new Exception("Photo Not Found");
+			}
 			$result = $db->result_rows();
 
 			$this->filename = $result['path_photo'];

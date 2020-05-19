@@ -1,4 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <?php
 require_once('settings.php');
 require_once(dirname(__FILE__).'/palbum.php');
@@ -20,11 +19,17 @@ function init() {
 			try {
 				$video = Video::getObjectsBySearchQuery("");
 			} catch(Exception $e) {
+				die($e->getMessage());
 			}
 			$sns = new SNS("ビデオアルバム", $psqlAlbum['Description'], NULL);
 		}
 	} else {
-		$album = new Album($_GET['aid']);
+		try {
+			$album = new Album($_GET['aid']);
+		} catch (Throwable $th) {
+			header($_SERVER['SERVER_PROTOCOL']." 404 Not Found");
+			die($th->getMessage());
+		}
 
 		try {
 			$photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
@@ -53,6 +58,7 @@ function title() {
 
 init();
 ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML LANG="<?php print $psqlAlbum['SiteLang']; ?>">
 	<HEAD>
 <?php

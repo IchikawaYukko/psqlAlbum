@@ -1,4 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd">
 <?php
 //This page shows detail of the objects(Photos, Videos, Sounds).
 //オブジェクト(写真、ビデオ、音声)の詳細を表示するページ
@@ -19,13 +18,28 @@ function init() {
 	$db->conn();
 	if(isset($_GET['pid'])) {
 		//photo
-		$obj = new Photo($_GET['pid']);
+		try {
+			$obj = new Photo($_GET['pid']);
+		} catch (Throwable $th) {
+			header($_SERVER['SERVER_PROTOCOL']." 404 Not Found");
+			die($th->getMessage());
+		}
 	} elseif(isset($_GET['vid'])) {
 		//video
-		$obj = new Video($_GET['vid']);
+		try {
+			$obj = new Video($_GET['vid']);
+		} catch (Throwable $th) {
+			header($_SERVER['SERVER_PROTOCOL']." 404 Not Found");
+			die($th->getMessage());
+		}
 	} else {
 		//sound
-		$obj = new Sound($_GET['sid']);
+		try {
+			$obj = new Sound($_GET['sid']);
+		} catch (Throwable $th) {
+			header($_SERVER['SERVER_PROTOCOL']." 404 Not Found");
+			die($th->getMessage());
+		}
 	}
 
 	$sns = new SNS($obj->getTitle(), $obj->getDescription(), $obj->getFileURL());
@@ -39,6 +53,7 @@ function title() {
 
 init();
 ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd">
 <HTML class="detailpage" LANG="<?php print $psqlAlbum['SiteLang']; ?>">
   <HEAD>
 <?php

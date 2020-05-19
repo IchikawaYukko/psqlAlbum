@@ -23,6 +23,9 @@ class Sound extends AlbumObject implements AlbumObjectInterface {
 			$this->db_id = $id;
 
 			$db->query("SELECT * FROM sound WHERE id = $1;", [$id]);
+			if($db->isNoResult()) {
+				throw new Exception("Sound Not Found", 1);
+			}
 			$result = $db->result_rows();
 
 			$this->filename	= $psqlAlbum['SoundDir'];
