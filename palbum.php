@@ -44,7 +44,7 @@ EOM;
 		} else {
 		return 
 <<<HEREDOC
-<A href="index.php?aid=$this->db_id">$datebegin Ã¯Â½Å¾ $dateend</A>$this->title<BR>
+<A href="index.php?aid=$this->db_id">$datebegin ～ $dateend</A>$this->title<BR>
 HEREDOC;
 		}
 	}
