@@ -101,8 +101,12 @@ HEREDOC;
 	public static function getObjectsBySearchQuery($query) {
 		global $db;
 
-		$db->query("SELECT * FROM video WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", ["%$query%"]);
-		 while($db->hasMoreRows()) {
+		if($query === "") {
+			$db->query("SELECT * FROM video ORDER BY id;", []);
+		} else {
+			$db->query("SELECT * FROM video WHERE (title LIKE $1 OR description LIKE $1) ORDER BY id;", ["%$query%"]);
+		}
+		while($db->hasMoreRows()) {
 			$result = $db->nextRow();
 			$videos[] = new Video($result);
 		}

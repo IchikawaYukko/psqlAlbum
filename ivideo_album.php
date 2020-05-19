@@ -7,42 +7,28 @@ require_once(dirname(__FILE__).'/psound.php');
 require_once(dirname(__FILE__).'/pgpx.php');
 require_once(dirname(__FILE__).'/psns.php');
 
-$album; $photo; $video; $sound; $gpx; $sns;
+$album; $photo; $video; $sound; $gpx; $sns; $title;
 $db = new DBconn($db_param);
 
 function init() {
-	global $psqlAlbum, $photo, $video, $sound, $album, $gpx, $db, $sns;
+	global $psqlAlbum, $photo, $video, $sound, $album, $gpx, $db, $sns, $title;
 
 	$db->conn();
 	try {
-		$album = new Album($_GET['aid']);
-	} catch (Throwable $th) {
+		$video = Video::getObjectsBySearchQuery("");
+	} catch(Throwable $th) {
 		header($_SERVER['SERVER_PROTOCOL']." 404 Not Found");
 		die($th->getMessage());
 	}
 
-	try {
-		$photo = Photo::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
-		$sns = new SNS(title(), $psqlAlbum['Description'], $photo[0]->getFileURL());
-	} catch (Exception $e) {
-		$sns = new SNS(title(), $psqlAlbum['Description'], NULL);
-	}
-	try {
-		$video = Video::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
-	} catch(Exception $e) {
-	}
-	try {
-		$sound = Sound::getObjectsInDateRange($album->getDatebegin(), $album->getDateend());
-	} catch(exception $e) {
-	}
-
-	$gpx = GPX::getGPXsInDateRange($album->getDatebegin(), $album->getDateend());
+	$title = "ビデオアルバム";
+	$sns = new SNS($title, $psqlAlbum['Description'], NULL);
 }
 
 function title() {
-	global $album, $psqlAlbum;
+	global $psqlAlbum, $title;
 
-	return $album->getTitle()." - ".$psqlAlbum['AlbumName'];
+	return "$title - ".$psqlAlbum['AlbumName'];
 }
 
 init();
@@ -65,32 +51,15 @@ print $sns->toTwitterCards('photo');
 		<TITLE><?php print (title()); ?></TITLE>
 	</HEAD>
 	<BODY>
-		<H1><?php print $album->getTitle(); ?></H1>
-		<P><STRONG>概要：</STRONG><?php print ($album->getDescription()); ?><BR><BR></P>
-		<DIV ID="canvas"></DIV>
-		<P>行程図。マウスドラッグで地図の移動、ホイールで拡大/縮小ができます。<BR>
-		(軌跡データが表示されるまで、しばらく時間がかかります。)<BR><BR>
-		GPSデータダウンロード<A href=../usingGPX.html>「GPSデータとは？」</A><BR>
-<?php
-foreach($gpx as $data) {
-	print $data->toHTML();
-}
-?><BR>
+		<H1><?php print $title; ?></H1>
+		<P><STRONG>概要：</STRONG><?php print $title; ?><BR><BR></P>
+<BR>
 		写真をクリックすると大きいサイズの写真が表示されます。</P>
 		<HR>
 		<DIV class="container">
 <?php
-if(!is_null($photo)) {
-	foreach($photo as $data) {
-		print $data->toHTMLthumbnail();
-	}
-}
 if(!is_null($video)) {
 	foreach($video as $data) {
-		print $data->toHTMLthumbnail();
-	}
-}if(!is_null($sound)) {
-	foreach($sound as $data) {
 		print $data->toHTMLthumbnail();
 	}
 }?>

@@ -17,7 +17,9 @@ if(isset($_GET['pid']) or isset($_GET['vid']) or isset($_GET['sid'])) {
 	// Search
 	require_once('isearch.php');
 } elseif(isset($_GET['type'])) {
-	require_once('ialbum.php');
+    if($_GET['type'] === 'video_album') {
+		require_once('ivideo_album.php');
+	}
 } elseif(isset($_GET['admin'])) {
 	// Show Admin page
 	require_once('psqlAlbum-admin/iadmin.php');
