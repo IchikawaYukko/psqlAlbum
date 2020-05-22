@@ -70,13 +70,6 @@ class DBConn {
 	}
 
 	public static function date_toJapanese($date) {
-		$temp = substr($date, 0, 4);
-		$temp .= "年";
-		$temp .= substr($date, 5, 2);
-		$temp .= "月";
-		$temp .= substr($date, 8, 2);
-		$temp .= "日";
-
-		return $temp;
+		return preg_replace("/([0-9]+)-([0-9]+)-([0-9]+)/","$1年$2月$3日", $date);
 	}
 }
