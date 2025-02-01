@@ -34,8 +34,8 @@ function mapinit(gpx){
 	});
 
 	// Define the map layer
-	layerTransportMap = new OpenLayers.Layer.OSM.TransportMap("交通図");
-	map.addLayer(layerTransportMap);
+	#layerTransportMap = new OpenLayers.Layer.OSM.TransportMap("交通図");
+	#map.addLayer(layerTransportMap);
 	var layerosm = new OpenLayers.Layer.OSM("オープンストリートマップ");
 	map.addLayer(layerosm);
 	layerCycleMap = new OpenLayers.Layer.OSM.CycleMap("サイクリングマップ");
